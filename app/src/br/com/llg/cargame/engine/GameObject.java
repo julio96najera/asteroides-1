@@ -16,6 +16,7 @@ public abstract class GameObject extends View {
 		super(context);
 	}
 	
+	public abstract void initObject();
 	public abstract void step(Canvas canvas);
 	public abstract void draw(Canvas canvas);
 

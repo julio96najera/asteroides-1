@@ -1,4 +1,4 @@
-package br.com.llg.cargame;
+package br.com.llg.cargame.game;
 
 import android.content.Context;
 import android.graphics.Canvas;

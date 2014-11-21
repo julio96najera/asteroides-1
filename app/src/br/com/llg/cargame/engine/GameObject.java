@@ -12,8 +12,10 @@ public abstract class GameObject extends View {
 	protected int width;
 	protected int height;
 	
-	public GameObject(Context context) {
+	public GameObject(Context context, int x, int y) {
 		super(context);
+		setX(x);
+		setY(y);
 	}
 	
 	public abstract void initObject();

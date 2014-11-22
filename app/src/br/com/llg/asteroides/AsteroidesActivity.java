@@ -1,10 +1,11 @@
-package br.com.llg.cargame;
+package br.com.llg.asteroides;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import br.com.llg.cargame.game.AsteroidesController;
+import br.com.llg.asteroides.R;
+import br.com.llg.asteroides.game.AsteroidesController;
 
 public class AsteroidesActivity extends Activity {
 

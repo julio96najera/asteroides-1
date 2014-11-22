@@ -1,4 +1,4 @@
-package br.com.llg.cargame.engine;
+package br.com.llg.asteroides.engine;
 
 import android.content.Context;
 import android.graphics.Canvas;

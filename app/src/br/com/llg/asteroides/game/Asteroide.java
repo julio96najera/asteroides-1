@@ -1,11 +1,11 @@
-package br.com.llg.cargame.game;
+package br.com.llg.asteroides.game;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import br.com.llg.cargame.R;
-import br.com.llg.cargame.engine.GameObject;
+import br.com.llg.asteroides.R;
+import br.com.llg.asteroides.engine.GameObject;
 
 public class Asteroide extends GameObject {
 

@@ -1,4 +1,4 @@
-package br.com.llg.cargame.game;
+package br.com.llg.asteroides.game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,14 +6,14 @@ import java.util.Random;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import br.com.llg.cargame.engine.GameController;
+import br.com.llg.asteroides.engine.GameController;
 
 public class AsteroidesController extends GameController {
 
 	private List<Asteroide> asteroides;
 	private Background background;
 	
-	private static final int WAIT = 70;
+	private static final int WAIT = 100;
 	private int stepCount = 0;
 	
 	public AsteroidesController(Context context) {
@@ -24,20 +24,14 @@ public class AsteroidesController extends GameController {
 
 	@Override
 	public void stepObjects(Canvas canvas) {
-		
-		for (Asteroide a : asteroides) {
-			if (a.isBottom(canvas))
-				asteroides.remove(a);
-		}
-		
+
 		stepCount++;
 		if (stepCount >= WAIT) {
 			
 			Random random = new Random();
-			
-			
+
 			Asteroide asteroide = new Asteroide(getContext(), 
-					random.nextInt(canvas.getWidth()-60), 0);
+					50 + random.nextInt(canvas.getWidth()-50), 0);
 			asteroides.add(asteroide);
 			
 			stepCount = 0;
@@ -45,8 +39,11 @@ public class AsteroidesController extends GameController {
 		
 		for (Asteroide a : asteroides) {
 			a.step(canvas);
+			
+			if (a.isBottom(canvas))
+				asteroides.remove(a);
 		}
-		
+
 		//verificar colisão
 	}
 

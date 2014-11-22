@@ -1,9 +1,9 @@
-package br.com.llg.cargame.game;
+package br.com.llg.asteroides.game;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import br.com.llg.cargame.engine.GameObject;
+import br.com.llg.asteroides.engine.GameObject;
 
 public class Background extends GameObject {
 

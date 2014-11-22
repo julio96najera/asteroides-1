@@ -1,4 +1,4 @@
-package br.com.llg.cargame.engine;
+package br.com.llg.asteroides.engine;
 
 public class Collision {
 

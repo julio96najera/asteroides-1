@@ -13,24 +13,17 @@ import br.com.llg.asteroides.game.SpaceShip;
 
 public class Right extends GameObject{
 
-	private Bitmap right;
-	private Paint paint;
-	
-	float width;
-	float height;
-
-	private float x = 0;
-	private float y = 0;
+	private Bitmap bitmap;
+	private SpaceShip ship;
 
 
-	public Right(Context context, int x, int y) {
+	public Right(Context context, int x, int y, SpaceShip ship) {
 		super(context, x, y);
-		paint = new Paint();
-		right = BitmapFactory.decodeResource(getResources(), R.drawable.right);
-		
+		bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.right);
 
-		this.width = right.getWidth();
-		this.height = right.getHeight();
+		this.width = bitmap.getWidth();
+		this.height = bitmap.getHeight();
+		this.ship = ship;
 
 	}
 
@@ -44,20 +37,19 @@ public class Right extends GameObject{
 	@Override
 	public void step(Canvas canvas) {
 
+		x = canvas.getWidth() - width;
+		y = canvas.getHeight() - (canvas.getHeight()/4);
 
 	}
 
 	@Override
 	public void draw(Canvas canvas) {
 
-		x = canvas.getWidth() - width;
-		y = canvas.getHeight() - (canvas.getHeight()/4);
-
-		canvas.drawBitmap(right, x, y, paint);	
+		canvas.drawBitmap(bitmap, x, y, null);	
 
 	}
 
-	public boolean onTouchEvent(MotionEvent event,  SpaceShip ship) {
+	public boolean onTouchEvent(MotionEvent event) {
 		
 		if(event.getX() >= x && event.getX() <= x+width){
 			if(event.getY() >= y && event.getY() <= y+height){

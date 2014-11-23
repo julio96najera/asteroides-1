@@ -26,8 +26,8 @@ public class AsteroidesController extends GameController {
 		super(context);
 		asteroides = new ArrayList<Asteroide>();
 		background = new Background(context, 0, 0);
-		left = new Left(context, 0, 0);
-		right = new Right(context, 0, 0);
+		left = new Left(context, 0, 0, ship);
+		right = new Right(context, 0, 0, ship);
 		ship = new SpaceShip(context, 0, 0);
 	}
 
@@ -76,8 +76,8 @@ public class AsteroidesController extends GameController {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		left.onTouchEvent(event, ship);
-		right.onTouchEvent(event, ship);
+		left.onTouchEvent(event);
+		right.onTouchEvent(event);
 		return super.onTouchEvent(event);
 	}
 	

@@ -6,12 +6,18 @@ import java.util.Random;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
+import br.com.llg.asteroides.buttons.Left;
+import br.com.llg.asteroides.buttons.Right;
 import br.com.llg.asteroides.engine.GameController;
 
 public class AsteroidesController extends GameController {
 
 	private List<Asteroide> asteroides;
 	private Background background;
+	private Left left;
+	private Right right;
+	private SpaceShip ship;
 	
 	private static final int WAIT = 70;
 	private int stepCount = 0;
@@ -20,10 +26,15 @@ public class AsteroidesController extends GameController {
 		super(context);
 		asteroides = new ArrayList<Asteroide>();
 		background = new Background(context, 0, 0);
+		left = new Left(context, 0, 0);
+		right = new Right(context, 0, 0);
+		ship = new SpaceShip(context, 0, 0);
 	}
 
 	@Override
 	public void stepObjects(Canvas canvas) {
+		
+		ship.step(canvas);
 
 		stepCount++;
 		if (stepCount >= WAIT) {
@@ -53,13 +64,23 @@ public class AsteroidesController extends GameController {
 	@Override
 	public void drawObjects(Canvas canvas) {
 		
-		background.draw(canvas);
-		
+		background.draw(canvas);		
+		ship.draw(canvas);
+		left.draw(canvas);
+		right.draw(canvas);
 		for (Asteroide a : asteroides) {
 			a.draw(canvas);
 		}
 		
-		
 	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		left.onTouchEvent(event, ship);
+		right.onTouchEvent(event, ship);
+		return super.onTouchEvent(event);
+	}
+	
+	
 
 }

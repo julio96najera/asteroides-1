@@ -12,7 +12,7 @@ public class Background extends GameObject {
 	}
 
 	@Override
-	public void initObject() {
+	public void initObject(Canvas canvas) {
 
 	}
 

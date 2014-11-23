@@ -18,7 +18,7 @@ public abstract class GameObject extends View {
 		setY(y);
 	}
 	
-	public abstract void initObject();
+	public abstract void initObject(Canvas canvas);
 	public abstract void step(Canvas canvas);
 	public abstract void draw(Canvas canvas);
 

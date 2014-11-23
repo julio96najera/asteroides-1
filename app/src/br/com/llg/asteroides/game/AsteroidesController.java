@@ -13,7 +13,7 @@ public class AsteroidesController extends GameController {
 	private List<Asteroide> asteroides;
 	private Background background;
 	
-	private static final int WAIT = 100;
+	private static final int WAIT = 70;
 	private int stepCount = 0;
 	
 	public AsteroidesController(Context context) {
@@ -31,20 +31,23 @@ public class AsteroidesController extends GameController {
 			Random random = new Random();
 
 			Asteroide asteroide = new Asteroide(getContext(), 
-					50 + random.nextInt(canvas.getWidth()-50), 0);
+					48 + random.nextInt(canvas.getWidth()-96), 0);
 			asteroides.add(asteroide);
 			
 			stepCount = 0;
 		}
 		
-		for (Asteroide a : asteroides) {
-			a.step(canvas);
+		//não vou usar for-each loop porque eu vou alterar os itens da lista (no caso, deletar-los)
+		for (int i = 0; i < asteroides.size(); i++) {
 			
-			if (a.isBottom(canvas))
-				asteroides.remove(a);
+			asteroides.get(i).step(canvas);
+			
+			if (asteroides.get(i).isBottom(canvas)) {
+				asteroides.remove(i);
+			}
 		}
 
-		//verificar colisão
+		//TODO: Verificar Colisao
 	}
 
 	@Override

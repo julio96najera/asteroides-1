@@ -24,7 +24,7 @@ public class Asteroide extends GameObject {
 	}
 
 	@Override
-	public void initObject() {
+	public void initObject(Canvas canvas) {
 
 	}
 

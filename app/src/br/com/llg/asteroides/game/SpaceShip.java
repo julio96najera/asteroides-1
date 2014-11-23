@@ -13,6 +13,8 @@ public class SpaceShip extends GameObject{
 	private Bitmap bitmap;
 	private Sprite sprite;
 	
+	private int tWidth;
+	
 	private int passoX = 10;
 	
 	private class Direction {
@@ -39,45 +41,33 @@ public class SpaceShip extends GameObject{
 	}
 
 	public void irEsquerda(){
-		
-//		x = x + (passoX/2);
-//		fColuna = 0;
-//		x = x + (passoX/2);
-//		fColuna = 1;
-		
-		x -= passoX;
-		direcao = Direction.LEFT;
-		
+			
+		if(x >= passoX && x <= tWidth){
+			x -= passoX;
+			direcao = Direction.LEFT;
+		}
 	}
 	
 	public void irDireita(){
-		
-//		x = x + (passoX/2);
-//		fColuna = 2;
-//		x = x + (passoX/2);
-//		fColuna = 1;
-		
-		x += passoX;
-		direcao = Direction.RIGHT;
-		
+			
+		if(x >= 0 && x <= tWidth - (passoX+width)){
+			x += passoX;
+			direcao = Direction.RIGHT;
+		}
+	}
+	
+	public void normal(){
+		direcao = Direction.NORMAL;
 	}
 	
 	@Override
 	public void step(Canvas canvas) {
+		tWidth = canvas.getWidth();
 		y = canvas.getHeight() - (height + 10);	
 	}
 
 	@Override
 	public void draw(Canvas canvas) {
-
-		
-//		int left = fLinha * wFrame ;
-//		int top = fColuna * hFrame ;
-//		int bottom = top + hFrame ;
-//		int right = left + wFrame ;
-//
-//		Rect src = new Rect(top, left,  bottom, right);
-//		Rect dst = new Rect(x, y, x + wFrame, y + hFrame);
 
 		sprite.draw(canvas, 0, direcao);
 	}

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import br.com.llg.asteroides.R;
 import br.com.llg.asteroides.engine.GameObject;
 import br.com.llg.asteroides.engine.Sprite;
@@ -17,9 +16,9 @@ public class SpaceShip extends GameObject{
 	private int passoX = 10;
 	
 	private class Direction {
-		public static final int LEFT = 0;
-		public static final int NORMAL = 1;
-		public static final int RIGHT = 2;
+		private static final int LEFT = 0;
+		private static final int NORMAL = 1;
+		private static final int RIGHT = 2;
 	}
 	
 	private int direcao = Direction.NORMAL;
@@ -32,12 +31,11 @@ public class SpaceShip extends GameObject{
 		this.width = bitmap.getWidth() / 3;
 		this.height = bitmap.getHeight();
 		
-		this.sprite = new Sprite(bitmap, 1, 3);
+		this.sprite = new Sprite(bitmap, 1, 3, this);
 	}
 	
 	public void initObject(Canvas canvas) {
-		
-		x = canvas.getWidth()/2;
+		x = canvas.getWidth()/2 - width;
 	}
 
 	public void irEsquerda(){
@@ -47,7 +45,7 @@ public class SpaceShip extends GameObject{
 //		x = x + (passoX/2);
 //		fColuna = 1;
 		
-		x += passoX;
+		x -= passoX;
 		direcao = Direction.LEFT;
 		
 	}
@@ -59,14 +57,14 @@ public class SpaceShip extends GameObject{
 //		x = x + (passoX/2);
 //		fColuna = 1;
 		
-		x -= passoX;
+		x += passoX;
 		direcao = Direction.RIGHT;
 		
 	}
 	
 	@Override
 	public void step(Canvas canvas) {
-		y = canvas.getHeight() - height;	
+		y = canvas.getHeight() - (height + 10);	
 	}
 
 	@Override

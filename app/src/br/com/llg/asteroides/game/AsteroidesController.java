@@ -26,9 +26,9 @@ public class AsteroidesController extends GameController {
 		super(context);
 		asteroides = new ArrayList<Asteroide>();
 		background = new Background(context, 0, 0);
+		ship = new SpaceShip(context, 0, 0);
 		left = new Left(context, 0, 0, ship);
 		right = new Right(context, 0, 0, ship);
-		ship = new SpaceShip(context, 0, 0);
 	}
 
 	@Override
@@ -59,6 +59,9 @@ public class AsteroidesController extends GameController {
 		}
 
 		//TODO: Verificar Colisao
+		
+		left.step(canvas);
+		right.step(canvas);
 	}
 
 	@Override

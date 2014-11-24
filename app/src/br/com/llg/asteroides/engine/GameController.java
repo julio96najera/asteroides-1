@@ -11,6 +11,7 @@ public abstract class GameController extends SurfaceView implements Runnable {
 	private boolean running;
 	private SurfaceHolder holder;
 	private static final int INTERVAL = 20;
+	private boolean firstInteract = false;
 
 	public GameController(Context context) {
 		super(context);
@@ -33,6 +34,11 @@ public abstract class GameController extends SurfaceView implements Runnable {
 			
 			Canvas canvas = holder.lockCanvas();
 			
+			if (!firstInteract) {
+				initObjects(canvas);
+				firstInteract = true;
+			}
+				
 			this.stepObjects(canvas);
 			this.drawObjects(canvas);
 			

@@ -13,7 +13,12 @@ public class SpaceShip extends GameObject{
 	private Bitmap bitmap;
 	private Bitmap explosionBitmap;
 	private Sprite sprite;
+
 	private Sprite explosionSprite;
+	private Boolean explosion = false;
+	private int explosionWait = 5;
+	private int explosionWaitCount = 0;
+	private int explosionAnimCount = 0;
 
 	private int passoX = 10;
 
@@ -25,8 +30,6 @@ public class SpaceShip extends GameObject{
 
 	private int direcao = Direction.NORMAL;
 
-	private Boolean explosion = false;
-	private int explosionCount = 0;
 
 	public SpaceShip(Context context, int x, int y) {
 		super(context, x, y);
@@ -42,7 +45,8 @@ public class SpaceShip extends GameObject{
 	}
 
 	public void initObject(Canvas canvas) {
-		x = canvas.getWidth()/2 - width;
+		x = canvas.getWidth()/2 - width/2;
+		y = canvas.getHeight() - (height + 10);
 	}
 
 	public void irEsquerda(){
@@ -61,20 +65,16 @@ public class SpaceShip extends GameObject{
 	public void step(Canvas canvas) {
 
 		if (!explosion) {
-			switch (direcao) {
-			case Direction.LEFT:
+
+			if (direcao == Direction.LEFT) {
 				if (x >= passoX) {
 					x -= passoX;
 				}
-				break;
-			case Direction.RIGHT:
+			} else if (direcao == Direction.RIGHT) {
 				if (x <= canvas.getWidth() - (passoX+width)) {
 					x += passoX;
 				}
-				break;
 			}
-
-			y = canvas.getHeight() - (height + 10);
 		}
 	}
 
@@ -82,11 +82,19 @@ public class SpaceShip extends GameObject{
 	public void draw(Canvas canvas) {
 
 		if (explosion) {
-			explosionSprite.draw(canvas, 0, explosionCount);
-			explosionCount++;
+
+			if (explosionWaitCount >= explosionWait) {
+				explosionWaitCount = 0;
+				explosionAnimCount++; //passa para o proximo sprite
+			}
+			
+			explosionSprite.draw(canvas, 0, explosionAnimCount);
+
+			explosionWaitCount++;
 		} else {
 			sprite.draw(canvas, 0, direcao);
 		}
+
 	}
 
 	public void explodir() {

@@ -20,7 +20,7 @@ public class AsteroidesController extends GameController implements SensorEventL
 	private Background background;
 	private SpaceShip ship;
 
-	private static final int asteroideWait = 20;
+	private static final int asteroideWait = 30;
 	private int asteroideStep = asteroideWait;
 
 	private SensorManager sensorManager;
@@ -37,11 +37,18 @@ public class AsteroidesController extends GameController implements SensorEventL
 	}
 
 	@Override
+	public void initObjects(Canvas canvas) {
+		ship.initObject(canvas);
+		background.initObject(canvas);
+	}
+	
+	@Override
 	public void stepObjects(Canvas canvas) {
-
+		
+		//criando asteroides se estiver na hora
 		createAsteroideIfNecessary(canvas);
 
-
+		//verificando colisão de todos os asteroides com a nave
 		for (int i = 0; i < asteroides.size(); ++i) {
 			if (Collision.isCollided(asteroides.get(i), ship)) {
 				asteroides.remove(i);
@@ -49,17 +56,20 @@ public class AsteroidesController extends GameController implements SensorEventL
 			}
 		}
 
+		//movimentando asteroides e a nave
 		for (int i = 0; i < asteroides.size(); i++)
 			asteroides.get(i).step(canvas);
 		
 		ship.step(canvas);
 
+		//removendo asteroide, caso ele esteja no fim da tela
 		for (int i = 0; i < asteroides.size(); ++i)
 			if (asteroides.get(i).isBottom(canvas))
 				asteroides.remove(i);		
 	}
 
 	private void createAsteroideIfNecessary(Canvas canvas) {
+		
 		if (asteroideStep >= asteroideWait) {
 			Random random = new Random();
 
@@ -113,17 +123,12 @@ public class AsteroidesController extends GameController implements SensorEventL
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 
-		if (event.values[0] > 2)
+		if (event.values[0] > 1)
 			ship.irEsquerda();
-		else if (event.values[0] < -2)
+		else if (event.values[0] < -1)
 			ship.irDireita();
 		else
 			ship.normal();
 	}
 
-	@Override
-	public void initObjects(Canvas canvas) {
-		// TODO Auto-generated method stub
-		
-	}
 }

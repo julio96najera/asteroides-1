@@ -17,19 +17,14 @@ public class Background extends GameObject {
 	}
 
 	@Override
-	public void initObject(Canvas canvas) {
-
-	}
+	public void initObject(Canvas canvas) {}
 
 	@Override
-	public void step(Canvas canvas) {
-
-	}
+	public void step(Canvas canvas) {}
 
 	@Override
 	public void draw(Canvas canvas) {
 		canvas.drawBitmap(bitmap, x, y, null);
-
 	}
 
 }

@@ -6,84 +6,121 @@ import java.util.Random;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.view.MotionEvent;
-import br.com.llg.asteroides.buttons.Left;
-import br.com.llg.asteroides.buttons.Right;
+import br.com.llg.asteroides.engine.Collision;
 import br.com.llg.asteroides.engine.GameController;
 
-public class AsteroidesController extends GameController {
+public class AsteroidesController extends GameController implements SensorEventListener {
 
 	private List<Asteroide> asteroides;
 	private Background background;
-	private Left left;
-	private Right right;
 	private SpaceShip ship;
-	
-	private static final int WAIT = 70;
+
+	private static final int WAIT = 10;
 	private int stepCount = 0;
+	private static final int asteroideWait = 30;
+	private int asteroideStep = 0;
 	
+	private SensorManager sensorManager;
+	private Sensor accelerometer;
+
 	public AsteroidesController(Context context) {
 		super(context);
 		asteroides = new ArrayList<Asteroide>();
 		background = new Background(context, 0, 0);
 		ship = new SpaceShip(context, 0, 0);
-		left = new Left(context, 0, 0, ship);
-		right = new Right(context, 0, 0, ship);
+		
+		sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 	}
 
 	@Override
 	public void stepObjects(Canvas canvas) {
-		
-		ship.step(canvas);
 
 		stepCount++;
 		if (stepCount >= WAIT) {
-			
-			Random random = new Random();
 
-			Asteroide asteroide = new Asteroide(getContext(), 
-					48 + random.nextInt(canvas.getWidth()-96), 0);
-			asteroides.add(asteroide);
+			ship.step(canvas);
+
+			asteroideStep++;
+			if (asteroideStep >= asteroideWait) {
+				Random random = new Random();
+
+				Asteroide asteroide = new Asteroide(getContext(), 
+						48 + random.nextInt(canvas.getWidth()-96), 0);
+				asteroides.add(asteroide);
+
+				asteroideStep = 0;
+			}
+
+			for (int i = 0; i < asteroides.size(); i++) {
+
+				asteroides.get(i).step(canvas);
+
+				if (Collision.isCollided(asteroides.get(i), ship)) {
+					ship.explodir();
+					asteroides.get(i).explodir();
+				}
+
+				if (asteroides.get(i).isBottom(canvas)) {
+					asteroides.remove(i);
+				}
+			}
 			
 			stepCount = 0;
 		}
 		
-		//não vou usar for-each loop porque eu vou alterar os itens da lista (no caso, deletar-los)
-		for (int i = 0; i < asteroides.size(); i++) {
-			
-			asteroides.get(i).step(canvas);
-			
-			if (asteroides.get(i).isBottom(canvas)) {
-				asteroides.remove(i);
-			}
-		}
-
-		//TODO: Verificar Colisao
-		
-		left.step(canvas);
-		right.step(canvas);
 	}
 
 	@Override
 	public void drawObjects(Canvas canvas) {
-		
+
 		background.draw(canvas);		
 		ship.draw(canvas);
-		left.draw(canvas);
-		right.draw(canvas);
 		for (Asteroide a : asteroides) {
 			a.draw(canvas);
 		}
-		
+
+	}
+	
+	@Override
+	public boolean performClick() {
+		return super.performClick();
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		left.onTouchEvent(event);
-		right.onTouchEvent(event);
+		this.performClick();
 		return super.onTouchEvent(event);
 	}
 	
-	
+	@Override
+	public void resume() {
+		super.resume();
+		sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+	}
 
+	@Override
+	public void stop() {
+		sensorManager.unregisterListener(this);
+		super.stop();
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		
+		if (event.values[0] > 0)
+			ship.irEsquerda();
+		else if (event.values[0] < 0)
+			ship.irDireita();
+		else
+			ship.normal();
+	}
 }

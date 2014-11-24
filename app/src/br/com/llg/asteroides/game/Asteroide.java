@@ -10,7 +10,7 @@ import br.com.llg.asteroides.engine.GameObject;
 public class Asteroide extends GameObject {
 
 	private Bitmap bitmap;
-	private int passoY = 3;
+	private int passoY = 6;
 	
 	public Asteroide(Context context, int x, int y) {
 		super(context, x, y);
@@ -30,16 +30,12 @@ public class Asteroide extends GameObject {
 
 	@Override
 	public void step(Canvas canvas) {
-		
 		y += passoY;
-
 	}
 
 	@Override
 	public void draw(Canvas canvas) {
-
 		canvas.drawBitmap(bitmap, x, y, null);
-
 	}
 
 	public boolean isBottom(Canvas canvas) {
@@ -48,6 +44,10 @@ public class Asteroide extends GameObject {
 			return true;
 		
 		return false;
+	}
+
+	public void explodir() {
+		
 	}
 
 }

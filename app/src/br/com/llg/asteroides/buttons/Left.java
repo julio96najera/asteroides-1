@@ -24,33 +24,27 @@ public class Left extends GameObject{
 	}
 
 	@Override
-	public void initObject(Canvas canvas) {
-
-
-	}
+	public void initObject(Canvas canvas) {}
 
 	@Override
 	public void step(Canvas canvas) {
-
 		x = 0;
 		y = canvas.getHeight() - (canvas.getHeight()/4);
-
 	}
 
 	@Override
 	public void draw(Canvas canvas) {
-
 		canvas.drawBitmap(bitmap, x, y, null);
-
 	}
 
-	public boolean onTouchEvent(MotionEvent event) {
-
+	public boolean onTouch(MotionEvent event) {
+		
 		if(event.getX() >= x && event.getX() <= x+width){
 			if(event.getY() >= y && event.getY() <= y+height){
 				ship.irEsquerda();
 			}
-		}
+		} else ship.normal();
+
 		return false;		
 	}
 

@@ -23,7 +23,7 @@ public class Background extends GameObject {
 
 	@Override
 	public void draw(Canvas canvas) {
-		canvas.drawColor(Color.YELLOW);
+		canvas.drawColor(Color.rgb(0, 0, 55));
 
 	}
 

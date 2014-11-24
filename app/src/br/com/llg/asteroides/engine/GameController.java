@@ -10,6 +10,7 @@ public abstract class GameController extends SurfaceView implements Runnable {
 	private Thread thread;
 	private boolean running;
 	private SurfaceHolder holder;
+	private static final int INTERVAL = 30;
 
 	public GameController(Context context) {
 		super(context);
@@ -24,6 +25,10 @@ public abstract class GameController extends SurfaceView implements Runnable {
 		while (running) { //loop do jogo
 			if (!holder.getSurface().isValid())
 				continue;
+			
+			try {
+				Thread.sleep(INTERVAL);
+			} catch (InterruptedException e) {}
 			
 			Canvas canvas = holder.lockCanvas();
 			

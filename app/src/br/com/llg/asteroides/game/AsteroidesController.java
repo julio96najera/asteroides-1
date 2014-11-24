@@ -20,11 +20,9 @@ public class AsteroidesController extends GameController implements SensorEventL
 	private Background background;
 	private SpaceShip ship;
 
-	private static final int WAIT = 10;
-	private int stepCount = 0;
-	private static final int asteroideWait = 20;
-	private int asteroideStep = 0;
-	
+	private static final int asteroideWait = 40;
+	private int asteroideStep = asteroideWait;
+
 	private SensorManager sensorManager;
 	private Sensor accelerometer;
 
@@ -33,47 +31,45 @@ public class AsteroidesController extends GameController implements SensorEventL
 		asteroides = new ArrayList<Asteroide>();
 		background = new Background(context, 0, 0);
 		ship = new SpaceShip(context, 0, 0);
-		
+
 		sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 	}
 
 	@Override
 	public void stepObjects(Canvas canvas) {
 
-		stepCount++;
-		if (stepCount >= WAIT) {
+		createAsteroideIfNecessary(canvas);
 
-			ship.step(canvas);
+		for (int i = 0; i < asteroides.size(); i++)
+			asteroides.get(i).step(canvas);
 
-			asteroideStep++;
-			if (asteroideStep >= asteroideWait) {
-				Random random = new Random();
+		ship.step(canvas);
 
-				Asteroide asteroide = new Asteroide(getContext(), 
-						48 + random.nextInt(canvas.getWidth()-96), 0);
-				asteroides.add(asteroide);
-
-				asteroideStep = 0;
+		for (int i = 0; i < asteroides.size(); ++i) {
+			if (Collision.isCollided(asteroides.get(i), ship)) {
+				asteroides.remove(i);
+				ship.explodir();
 			}
-
-			for (int i = 0; i < asteroides.size(); i++) {
-
-				asteroides.get(i).step(canvas);
-				
-				if (asteroides.get(i).isBottom(canvas)) {
-					asteroides.remove(i);
-				}
-				
-				if (Collision.isCollided(ship, asteroides.get(i))) {
-					ship.explodir();
-					asteroides.get(i).explodir();
-				}
-			}
-			
-			stepCount = 0;
 		}
-		
+
+		for (int i = 0; i < asteroides.size(); ++i)
+			if (asteroides.get(i).isBottom(canvas))
+				asteroides.remove(i);		
+	}
+
+	private void createAsteroideIfNecessary(Canvas canvas) {
+		if (asteroideStep >= asteroideWait) {
+			Random random = new Random();
+
+			Asteroide asteroide = new Asteroide(getContext(), 
+					48 + random.nextInt(canvas.getWidth()-96), 0);
+			asteroides.add(asteroide);
+
+			asteroideStep = 0;
+		}
+
+		asteroideStep++;
 	}
 
 	@Override
@@ -86,7 +82,7 @@ public class AsteroidesController extends GameController implements SensorEventL
 		}
 
 	}
-	
+
 	@Override
 	public boolean performClick() {
 		return super.performClick();
@@ -97,7 +93,7 @@ public class AsteroidesController extends GameController implements SensorEventL
 		this.performClick();
 		return super.onTouchEvent(event);
 	}
-	
+
 	@Override
 	public void resume() {
 		super.resume();
@@ -115,7 +111,7 @@ public class AsteroidesController extends GameController implements SensorEventL
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		
+
 		if (event.values[0] > 2)
 			ship.irEsquerda();
 		else if (event.values[0] < -2)

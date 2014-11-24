@@ -10,7 +10,7 @@ import br.com.llg.asteroides.engine.GameObject;
 public class Asteroide extends GameObject {
 
 	private Bitmap bitmap;
-	private int passoY = 6;
+	private int passoY = 8;
 	
 	public Asteroide(Context context, int x, int y) {
 		super(context, x, y);

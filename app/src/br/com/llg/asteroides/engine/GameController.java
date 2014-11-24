@@ -10,13 +10,14 @@ public abstract class GameController extends SurfaceView implements Runnable {
 	private Thread thread;
 	private boolean running;
 	private SurfaceHolder holder;
-	private static final int INTERVAL = 30;
+	private static final int INTERVAL = 20;
 
 	public GameController(Context context) {
 		super(context);
 		holder = getHolder();
 	}
 	
+	public abstract void initObjects(Canvas canvas);
 	public abstract void stepObjects(Canvas canvas);
 	public abstract void drawObjects(Canvas canvas);
 	

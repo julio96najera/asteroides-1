@@ -19,6 +19,7 @@ public class AsteroidesController extends GameController implements SensorEventL
 	private List<Asteroide> asteroides;
 	private Background background;
 	private SpaceShip ship;
+    private BackgroundMusic backgroundMusic;
 
 	private static final int asteroideWait = 30;
 	private int asteroideStep = asteroideWait;
@@ -31,6 +32,7 @@ public class AsteroidesController extends GameController implements SensorEventL
 		asteroides = new ArrayList<Asteroide>();
 		background = new Background(context, 0, 0);
 		ship = new SpaceShip(context, 0, 0);
+        backgroundMusic = new BackgroundMusic(context, 0, 0, true);
 
 		sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 		accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -40,6 +42,7 @@ public class AsteroidesController extends GameController implements SensorEventL
 	public void initObjects(Canvas canvas) {
 		ship.initObject(canvas);
 		background.initObject(canvas);
+        backgroundMusic.initObject(canvas);
 	}
 	
 	@Override
@@ -65,7 +68,9 @@ public class AsteroidesController extends GameController implements SensorEventL
 		//removendo asteroide, caso ele esteja no fim da tela
 		for (int i = 0; i < asteroides.size(); ++i)
 			if (asteroides.get(i).isBottom(canvas))
-				asteroides.remove(i);		
+				asteroides.remove(i);
+
+        backgroundMusic.step(canvas);
 	}
 
 	private void createAsteroideIfNecessary(Canvas canvas) {
@@ -108,12 +113,14 @@ public class AsteroidesController extends GameController implements SensorEventL
 	@Override
 	public void resume() {
 		super.resume();
+        backgroundMusic.startMusic();
 		sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 	}
 
 	@Override
 	public void stop() {
 		sensorManager.unregisterListener(this);
+		backgroundMusic.stopMusic();
 		super.stop();
 	}
 

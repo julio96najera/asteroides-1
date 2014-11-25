@@ -30,6 +30,8 @@ public class SpaceShip extends GameObject{
 
 	private int direcao = Direction.NORMAL;
 
+	private ExplosionSound explosionSound;
+	private boolean explosionSoundFinish = false;
 
 	public SpaceShip(Context context, int x, int y) {
 		super(context, x, y);
@@ -41,6 +43,8 @@ public class SpaceShip extends GameObject{
 
 		this.sprite = new Sprite(bitmap, 1, 3, this);
 		this.explosionSprite = new Sprite(explosionBitmap, 1, 5, this);
+		
+		explosionSound = new ExplosionSound(context, 0, 0);
 
 	}
 
@@ -74,6 +78,11 @@ public class SpaceShip extends GameObject{
 				if (x <= canvas.getWidth() - (passoX+width)) {
 					x += passoX;
 				}
+			}
+		} else {
+			if (!explosionSoundFinish) {
+				explosionSound.startSound();
+				explosionSoundFinish = true;
 			}
 		}
 	}

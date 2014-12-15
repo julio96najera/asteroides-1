@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 import com.allg.asteroides.R;
 import com.allg.asteroides.engine.GameObject;
@@ -14,7 +15,7 @@ public class Background extends GameObject {
 
     public Background(Context context, int x, int y) {
         super(context, x, y);
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.fundoestrelado);
     }
 
     @Override
@@ -23,11 +24,22 @@ public class Background extends GameObject {
 
     @Override
     public void step(Canvas canvas) {
+        y++;
+
+        if (y + bitmap.getHeight() > canvas.getHeight()) {
+            x = 0;
+            y = 0;
+        }
     }
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, x, y, null);
+
+        Rect rectSrc = new Rect(x, y, x+canvas.getHeight(), y+canvas.getWidth());
+
+        Rect rectDst = new Rect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        canvas.drawBitmap(bitmap, rectSrc, rectDst, null);
     }
 
 }

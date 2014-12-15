@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class AsteroidesController extends GameController implements SensorEventListener {
+public class Level1Controller extends GameController implements SensorEventListener {
 
     private static final int asteroideWait = 30;
     private int asteroideStep = asteroideWait;
@@ -27,7 +27,7 @@ public class AsteroidesController extends GameController implements SensorEventL
     private SensorManager sensorManager;
     private Sensor accelerometer;
 
-    public AsteroidesController(Context context) {
+    public Level1Controller(Context context) {
         super(context);
         asteroides = new ArrayList<Asteroide>();
         background = new Background(context, 0, 0);

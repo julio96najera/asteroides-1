@@ -5,35 +5,35 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.allg.asteroides.game.AsteroidesController;
+import com.allg.asteroides.game.Level1Controller;
 
-public class AsteroidesActivity extends Activity {
+public class Level1Activity extends Activity {
 
-	private AsteroidesController asteroidesController;
+	private Level1Controller controller;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		asteroidesController = new AsteroidesController(this);
-		setContentView(asteroidesController);
+		controller = new Level1Controller(this);
+		setContentView(controller);
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		asteroidesController.resume();
+		controller.resume();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		asteroidesController.stop();
+		controller.stop();
 	}
 	
 	@Override
 	protected void onStop() {
 		super.onStop();
-		asteroidesController.stop();
+        controller.stop();
 	}
 }

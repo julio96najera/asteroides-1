@@ -24,6 +24,7 @@ public class Level1Controller extends GameController implements SensorEventListe
     private Background background;
     private SpaceShip ship;
     private BackgroundMusic backgroundMusic;
+    private Score score;
     private SensorManager sensorManager;
     private Sensor accelerometer;
 
@@ -33,6 +34,7 @@ public class Level1Controller extends GameController implements SensorEventListe
         background = new Background(context, 0, 0);
         ship = new SpaceShip(context, 0, 0);
         backgroundMusic = new BackgroundMusic(context, 0, 0, true);
+        score = new Score(context, 0, 0);
 
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -43,6 +45,7 @@ public class Level1Controller extends GameController implements SensorEventListe
         ship.initObject(canvas);
         background.initObject(canvas);
         backgroundMusic.initObject(canvas);
+        score.initObject(canvas);
     }
 
     @Override
@@ -71,6 +74,7 @@ public class Level1Controller extends GameController implements SensorEventListe
                 asteroides.remove(i);
 
         backgroundMusic.step(canvas);
+        score.step(canvas);
     }
 
     private void createAsteroideIfNecessary(Canvas canvas) {
@@ -96,6 +100,8 @@ public class Level1Controller extends GameController implements SensorEventListe
         for (Asteroide a : asteroides) {
             a.draw(canvas);
         }
+
+        score.draw(canvas);
 
     }
 

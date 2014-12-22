@@ -25,6 +25,9 @@ public class SpaceShip extends GameObject {
     private int direcao = Direction.NORMAL;
     private ExplosionSound explosionSound;
     private boolean explosionSoundFinish = false;
+
+    private int distance = 0;
+
     public SpaceShip(Context context, int x, int y) {
         super(context, x, y);
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.spaceship);
@@ -61,6 +64,8 @@ public class SpaceShip extends GameObject {
     public void step(Canvas canvas) {
 
         if (!explosion) {
+
+            distance++;
 
             if (direcao == Direction.LEFT) {
                 if (x >= passoX) {
@@ -100,6 +105,10 @@ public class SpaceShip extends GameObject {
 
     public void explodir() {
         explosion = true;
+    }
+
+    public int getDistance() {
+        return distance;
     }
 
     private class Direction {

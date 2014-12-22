@@ -7,17 +7,16 @@ import android.graphics.Paint;
 
 import com.allg.asteroides.engine.GameObject;
 
-/**
- * Created by leandro on 21/12/14.
- */
 public class Score extends GameObject {
 
     private int points = 0;
-
     private Paint paint;
+    private SpaceShip ship;
 
-    public Score(Context context, int x, int y) {
+    public Score(Context context, int x, int y, SpaceShip ship) {
         super(context, x, y);
+
+        this.ship = ship;
 
         paint = new Paint();
         paint.setColor(Color.WHITE);
@@ -33,6 +32,10 @@ public class Score extends GameObject {
     @Override
     public void step(Canvas canvas) {
         //TODO: Sistema de pontuação da nave
+
+        if (ship.getDistance() % 20 == 0) {
+            points++;
+        }
     }
 
     @Override

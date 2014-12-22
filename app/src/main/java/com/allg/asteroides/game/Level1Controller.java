@@ -34,7 +34,7 @@ public class Level1Controller extends GameController implements SensorEventListe
         background = new Background(context, 0, 0);
         ship = new SpaceShip(context, 0, 0);
         backgroundMusic = new BackgroundMusic(context, 0, 0, true);
-        score = new Score(context, 0, 0);
+        score = new Score(context, 0, 0, ship);
 
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

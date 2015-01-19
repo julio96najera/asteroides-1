@@ -26,6 +26,10 @@
             android:name=".Level2Activity"
             android:label="@string/title_activity_level2" >
         </activity>
+        <activity
+            android:name=".CreditsActivity"
+            android:label="@string/title_activity_credits" >
+        </activity>
     </application>
 
 </manifest>

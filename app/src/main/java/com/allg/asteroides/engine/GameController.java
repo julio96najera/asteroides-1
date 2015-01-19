@@ -14,9 +14,9 @@ public abstract class GameController extends SurfaceView implements Runnable {
 	private boolean firstInteract = false;
 
 	public GameController(Context context) {
-		super(context);
-		holder = getHolder();
-	}
+        super(context);
+        holder = getHolder();
+    }
 	
 	public abstract void initObjects(Canvas canvas);
 	public abstract void stepObjects(Canvas canvas);

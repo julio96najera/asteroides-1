@@ -15,8 +15,8 @@ public class BackgroundMusic extends GameObject {
     private MediaPlayer player;
     private boolean startAutomatic = true;
 
-    public BackgroundMusic(Context context, int x, int y, boolean startAutomatic) {
-        super(context, x, y);
+    public BackgroundMusic(Context context, boolean startAutomatic) {
+        super(context, 0, 0);
         player = MediaPlayer.create(context, R.raw.light_years);
         this.startAutomatic = startAutomatic;
     }

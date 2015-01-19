@@ -2,8 +2,6 @@ package com.allg.asteroides;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.allg.asteroides.game.Level1Controller;
 
@@ -18,6 +16,10 @@ public class Level1Activity extends Activity {
 		controller = new Level1Controller(this);
 		setContentView(controller);
 	}
+
+    public void nextLevel() {
+
+    }
 	
 	@Override
 	protected void onResume() {

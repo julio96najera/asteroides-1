@@ -15,6 +15,11 @@ import android.view.MotionEvent;
 import com.allg.asteroides.Level2Activity;
 import com.allg.asteroides.engine.Collision;
 import com.allg.asteroides.engine.GameController;
+import com.allg.asteroides.game.objects.Asteroide;
+import com.allg.asteroides.game.objects.Background;
+import com.allg.asteroides.game.objects.BackgroundMusic;
+import com.allg.asteroides.game.objects.Score;
+import com.allg.asteroides.game.objects.SpaceShip;
 
 import java.util.ArrayList;
 import java.util.List;

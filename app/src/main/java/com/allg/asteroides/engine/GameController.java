@@ -21,7 +21,7 @@ public abstract class GameController extends SurfaceView implements Runnable {
 	public abstract void initObjects(Canvas canvas);
 	public abstract void stepObjects(Canvas canvas);
 	public abstract void drawObjects(Canvas canvas);
-	
+
 	@Override
 	public void run() {
 		while (running) { //loop do jogo

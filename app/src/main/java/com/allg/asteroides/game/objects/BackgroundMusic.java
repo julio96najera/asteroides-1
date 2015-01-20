@@ -1,4 +1,4 @@
-package com.allg.asteroides.game;
+package com.allg.asteroides.game.objects;
 
 import android.content.Context;
 import android.graphics.Canvas;

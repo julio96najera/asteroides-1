@@ -2,6 +2,9 @@ package com.allg.asteroides.game;
 
 import android.content.Context;
 
+import com.allg.asteroides.game.objects.Background;
+import com.allg.asteroides.game.objects.BackgroundMusic;
+
 
 public class Level1Controller extends LevelControllerAbstract {
 

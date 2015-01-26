@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
     }
 
     public void start(View v){
-        Intent intent = new Intent(this, Level1Activity.class);
+        Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
 

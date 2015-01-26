@@ -2,6 +2,7 @@ package com.allg.asteroides.engine;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -10,7 +11,8 @@ public abstract class GameController extends SurfaceView implements Runnable {
 	private Thread thread;
 	private boolean running;
 	private SurfaceHolder holder;
-	private static final int INTERVAL = 20;
+	private static final int INTERVAL = 1000;
+    private static int count = 0;
 	private boolean firstInteract = false;
 
 	public GameController(Context context) {
@@ -28,10 +30,17 @@ public abstract class GameController extends SurfaceView implements Runnable {
 			if (!holder.getSurface().isValid())
 				continue;
 			
-			try {
-				Thread.sleep(INTERVAL);
-			} catch (InterruptedException e) {}
-			
+//			try {
+//				Thread.sleep(INTERVAL);
+//			} catch (InterruptedException e) {}
+
+            count++;
+
+            if (count <= INTERVAL)
+                continue;
+            else
+                count = 0;
+
 			Canvas canvas = holder.lockCanvas();
 			
 			if (!firstInteract) {
@@ -43,7 +52,7 @@ public abstract class GameController extends SurfaceView implements Runnable {
 			this.drawObjects(canvas);
 			
 			holder.unlockCanvasAndPost(canvas);
-		}
+        }
 	}
 	
 	public void resume() {

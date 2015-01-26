@@ -1,8 +1,6 @@
-package com.allg.asteroides.game;
+package com.allg.asteroides.game.levels;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,7 +10,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.view.MotionEvent;
 
-import com.allg.asteroides.Level2Activity;
 import com.allg.asteroides.engine.Collision;
 import com.allg.asteroides.engine.GameController;
 import com.allg.asteroides.game.objects.Asteroide;
@@ -25,32 +22,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by leandro on 19/01/15.
- */
-public abstract class LevelControllerAbstract extends GameController implements SensorEventListener {
+public class LevelController extends GameController implements SensorEventListener {
 
-    private List<Asteroide> asteroides;
     private Background background;
     private SpaceShip ship;
     private BackgroundMusic music;
+    private int velocity;
+    private int asteroideStep = velocity;
+    private int numberAsteroides = 0;
+    private List<Asteroide> asteroides;
     private Score score;
-
-    //Acelerometro
     private SensorManager sensorManager;
     private Sensor accelerometer;
-
-    private int asteroideWait;
-    private int asteroideStep = asteroideWait;
-    private int numberAsteroides = 0;
     private int asteroidesCreated = 0;
-
     private boolean levelFinished = false;
 
-    private Activity activity;
-
-    public LevelControllerAbstract(Context context, Background background,
-                        BackgroundMusic music, int numberAsteroides, int velocity) {
+    public LevelController(Context context, Background background,
+                           BackgroundMusic music, int numberAsteroides, int velocity) {
         super(context);
         this.asteroides = new ArrayList<Asteroide>();
         this.background = background;
@@ -59,19 +47,41 @@ public abstract class LevelControllerAbstract extends GameController implements 
         this.music = music;
 
         this.numberAsteroides = numberAsteroides;
-        this.asteroideWait = velocity;
+        this.velocity = velocity;
 
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
 
-        activity = (Activity) context;
+    public BackgroundMusic getMusic() {
+        return music;
+    }
+
+    public void setMusic(BackgroundMusic music) {
+        this.music = music;
+    }
+
+    public Background getBackgroundLevel() {
+        return background;
+    }
+
+    public void setBackground(Background background) {
+        this.background = background;
+    }
+
+    public SpaceShip getShip() {
+        return ship;
+    }
+
+    public void setShip(SpaceShip ship) {
+        this.ship = ship;
     }
 
     private void createAsteroideIfNecessary(Canvas canvas) {
 
         if (asteroidesCreated <= numberAsteroides) {
 
-            if (asteroideStep >= asteroideWait) {
+            if (asteroideStep >= velocity) {
                 Random random = new Random();
 
                 Asteroide asteroide = new Asteroide(getContext(),
@@ -83,8 +93,7 @@ public abstract class LevelControllerAbstract extends GameController implements 
             }
 
             asteroideStep++;
-        }
-        else
+        } else
             levelFinished = true;
     }
 
@@ -154,12 +163,6 @@ public abstract class LevelControllerAbstract extends GameController implements 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         this.performClick();
-
-        if (levelFinished) {
-            Intent intent = new Intent(activity, Level2Activity.class);
-
-            activity.startActivity(intent);
-        }
 
         return super.onTouchEvent(event);
     }

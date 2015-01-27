@@ -11,8 +11,7 @@ public abstract class GameController extends SurfaceView implements Runnable {
 	private Thread thread;
 	private boolean running;
 	private SurfaceHolder holder;
-	private static final int INTERVAL = 1000;
-    private static int count = 0;
+	private static final int INTERVAL = 10;
 	private boolean firstInteract = false;
 
 	public GameController(Context context) {
@@ -30,16 +29,9 @@ public abstract class GameController extends SurfaceView implements Runnable {
 			if (!holder.getSurface().isValid())
 				continue;
 			
-//			try {
-//				Thread.sleep(INTERVAL);
-//			} catch (InterruptedException e) {}
-
-            count++;
-
-            if (count <= INTERVAL)
-                continue;
-            else
-                count = 0;
+			try {
+				Thread.sleep(INTERVAL);
+			} catch (InterruptedException e) {}
 
 			Canvas canvas = holder.lockCanvas();
 			

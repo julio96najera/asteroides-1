@@ -3,7 +3,7 @@ package com.allg.asteroides;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.allg.asteroides.engine.level.LevelController;
+import com.allg.asteroides.game.levels.LevelController;
 import com.allg.asteroides.game.objects.Background;
 import com.allg.asteroides.game.objects.BackgroundMusic;
 
@@ -20,7 +20,7 @@ public class GameActivity extends Activity {
                 new Background(this, 0, 0),
                 new BackgroundMusic(this, true),
                 40,
-                30
+                10
         );
 
 		setContentView(level);

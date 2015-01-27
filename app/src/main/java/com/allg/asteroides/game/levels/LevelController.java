@@ -47,34 +47,10 @@ public class LevelController extends GameController implements SensorEventListen
         this.music = music;
 
         this.numberAsteroides = numberAsteroides;
-        this.velocity = velocity;
+        this.velocity = 100 - velocity;
 
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-    }
-
-    public BackgroundMusic getMusic() {
-        return music;
-    }
-
-    public void setMusic(BackgroundMusic music) {
-        this.music = music;
-    }
-
-    public Background getBackgroundLevel() {
-        return background;
-    }
-
-    public void setBackground(Background background) {
-        this.background = background;
-    }
-
-    public SpaceShip getShip() {
-        return ship;
-    }
-
-    public void setShip(SpaceShip ship) {
-        this.ship = ship;
     }
 
     private void createAsteroideIfNecessary(Canvas canvas) {

@@ -53,6 +53,32 @@ public class LevelController extends GameController implements SensorEventListen
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
+    public LevelController(Context context) {
+        super(context);
+        this.asteroides = new ArrayList<Asteroide>();
+        this.ship = new SpaceShip(context, 0, 0);
+        this.score = new Score(context, 0, 0, ship);
+
+        sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
+
+    public void setBackground(Background background) {
+        this.background = background;
+    }
+
+    public void setMusic(BackgroundMusic music) {
+        this.music = music;
+    }
+
+    public void setVelocity(int velocity) {
+        this.velocity = 100 - velocity;
+    }
+
+    public void setNumberAsteroides(int numberAsteroides) {
+        this.numberAsteroides = numberAsteroides;
+    }
+
     private void createAsteroideIfNecessary(Canvas canvas) {
 
         if (asteroidesCreated <= numberAsteroides) {

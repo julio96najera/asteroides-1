@@ -23,7 +23,7 @@ public class BackgroundMusic extends GameObject {
 
     @Override
     public void initObject(Canvas canvas) {
-        if (!player.isPlaying() && startAutomatic) {
+        if (!player.isPlaying() && startAutomatic == true) {
             player.start();
         }
 

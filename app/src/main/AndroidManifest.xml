@@ -28,7 +28,6 @@
         </activity>
         <activity
             android:name=".CreditsActivity"
-            android:label="@string/title_activity_credits"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
     </application>

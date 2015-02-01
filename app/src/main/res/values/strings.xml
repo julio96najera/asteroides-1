@@ -2,9 +2,8 @@
 <resources>
 
     <string name="app_name" translatable="false">Space Revenger</string>
-    <string name="title_activity_level2">Level2Activity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_credits">CreditsActivity</string>
+    <string name="menu_start_button">Iniciar</string>
+    <string name="menu_credits_button">Créditos</string>
+    <string name="title_activity_level2" translatable="false">Level 2</string>
 
 </resources>

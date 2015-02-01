@@ -11,9 +11,9 @@ import com.allg.asteroides.engine.GameObject;
 public class Asteroide extends GameObject {
 
     private Bitmap bitmap;
-    private int passoY = 8;
+    private int passoY;
 
-    public Asteroide(Context context, int x, int y) {
+    public Asteroide(Context context, int x, int y, int velocity) {
         super(context, x, y);
         this.x = x;
         this.y = y;
@@ -22,6 +22,8 @@ public class Asteroide extends GameObject {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.asteroide);
         this.height = bitmap.getHeight();
         this.width = bitmap.getWidth();
+
+        this.passoY = velocity;
     }
 
     @Override

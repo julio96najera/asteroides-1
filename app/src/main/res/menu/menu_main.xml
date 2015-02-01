@@ -1,4 +1,4 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.allg.asteroides.MainActivity">
+    tools:context="com.allg.asteroides.activity.MainActivity">
     <!-- Sem itens -->
 </menu>

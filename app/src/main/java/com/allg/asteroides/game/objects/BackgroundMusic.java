@@ -7,9 +7,6 @@ import android.media.MediaPlayer;
 import com.allg.asteroides.R;
 import com.allg.asteroides.engine.GameObject;
 
-/**
- * Created by leandro on 25/11/14.
- */
 public class BackgroundMusic extends GameObject {
 
     private MediaPlayer player;

@@ -13,8 +13,8 @@ public class Score extends GameObject {
     private Paint paint;
     private SpaceShip ship;
 
-    public Score(Context context, int x, int y, SpaceShip ship) {
-        super(context, x, y);
+    public Score(Context context, SpaceShip ship) {
+        super(context, 0, 0);
 
         this.ship = ship;
 
@@ -40,6 +40,6 @@ public class Score extends GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawText(points+"", x, y, paint);
+        canvas.drawText(points + "", x, y, paint);
     }
 }

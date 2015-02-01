@@ -13,15 +13,19 @@ public abstract class GameController extends SurfaceView implements Runnable {
 	private SurfaceHolder holder;
 	private static final int INTERVAL = 10;
 	private boolean firstInteract = false;
+    private GameState gameState;
 
 	public GameController(Context context) {
         super(context);
         holder = getHolder();
+        gameState = new GameState();
+        gameState.setState(GameState.State.INTRO);
     }
 	
 	public abstract void initObjects(Canvas canvas);
 	public abstract void stepObjects(Canvas canvas);
 	public abstract void drawObjects(Canvas canvas);
+    public abstract void finishLevel(Canvas canvas);
 
 	@Override
 	public void run() {
@@ -34,16 +38,21 @@ public abstract class GameController extends SurfaceView implements Runnable {
 			} catch (InterruptedException e) {}
 
 			Canvas canvas = holder.lockCanvas();
-			
-			if (!firstInteract) {
-				initObjects(canvas);
-				firstInteract = true;
-			}
-				
-			this.stepObjects(canvas);
-			this.drawObjects(canvas);
-			
-			holder.unlockCanvasAndPost(canvas);
+
+            if (gameState.getState() == GameState.State.INTRO) {
+                this.initObjects(canvas);
+                this.gameState.setState(GameState.State.RUNNING);
+            }
+
+            if (gameState.getState() == GameState.State.RUNNING) {
+                this.stepObjects(canvas);
+                this.drawObjects(canvas);
+            }
+
+            if (gameState.getState() == GameState.State.END)
+                this.finishLevel(canvas);
+
+            holder.unlockCanvasAndPost(canvas);
         }
 	}
 	

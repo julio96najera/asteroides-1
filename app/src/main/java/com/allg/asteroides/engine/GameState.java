@@ -4,9 +4,9 @@ public class GameState {
 
     public enum State {
 
+        INTRO,
         RUNNING,
-        PLAYER_LOST,
-        PLAYER_WIN
+        END
     }
 
     private State currentState;
@@ -16,7 +16,7 @@ public class GameState {
     }
 
     public GameState() {
-        currentState = State.RUNNING;
+        currentState = State.INTRO;
     }
 
     public State getState() {
@@ -27,15 +27,4 @@ public class GameState {
         this.currentState = state;
     }
 
-    public void setRunningState() {
-        currentState = State.RUNNING;
-    }
-
-    public void setPlayerLostState() {
-        currentState = State.PLAYER_LOST;
-    }
-
-    public void setPlayerWinState() {
-        currentState = State.PLAYER_WIN;
-    }
 }

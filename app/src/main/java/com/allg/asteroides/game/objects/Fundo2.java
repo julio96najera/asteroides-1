@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.allg.asteroides.R;
+import com.allg.asteroides.game.objects.abstracts.Background;
 
 public class Fundo2 extends Background {
 

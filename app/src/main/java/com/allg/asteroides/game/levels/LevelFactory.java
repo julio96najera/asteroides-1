@@ -2,11 +2,11 @@ package com.allg.asteroides.game.levels;
 
 import android.content.Context;
 
-import com.allg.asteroides.game.objects.Background;
 import com.allg.asteroides.game.objects.BackgroundMusic;
 import com.allg.asteroides.game.objects.Fundo1;
 import com.allg.asteroides.game.objects.Fundo2;
 import com.allg.asteroides.game.objects.SpaceShip;
+import com.allg.asteroides.game.objects.abstracts.Background;
 
 
 public class LevelFactory {

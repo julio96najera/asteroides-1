@@ -2,6 +2,8 @@ package com.allg.asteroides.game.levels;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 
 import com.allg.asteroides.engine.Collision;
@@ -28,6 +30,8 @@ public class LevelController extends GameController {
     private Music music;
 
     private LevelManager levelManager;
+
+    private boolean playerWin = false;
 
     public LevelController(Context context, SpaceShip ship, Background background,
                            Music music, int asteroidesNumber, int velocity,
@@ -68,7 +72,12 @@ public class LevelController extends GameController {
             if (Collision.isCollided(a, ship)) {
                 ship.explodir();
                 getGameState().setState(GameState.State.END);
+                playerWin = false;
             }
+        }
+
+        if (asteroideManager.isAllAsteroidesCreated() && !ship.isExploded()) {
+            playerWin = true;
         }
 
     }
@@ -92,6 +101,12 @@ public class LevelController extends GameController {
         background.draw(canvas);
         score.draw(canvas);
         ship.draw(canvas);
+
+        if (playerWin) {
+            Paint paint = new Paint();
+            paint.setColor(Color.WHITE);
+            canvas.drawText("Você venceu! Toque na tela.", 50, canvas.getHeight() / 2, paint);
+        }
     }
 
     @Override
@@ -101,7 +116,7 @@ public class LevelController extends GameController {
 
     @Override
     public void touchEvent(MotionEvent event) {
-        if (getGameState().getState() == GameState.State.END) {
+        if (getGameState().getState() == GameState.State.END && playerWin) {
             levelManager.levelFinish();
         }
     }

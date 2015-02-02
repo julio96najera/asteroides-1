@@ -72,4 +72,11 @@ public class AsteroideManager extends GameObject {
         }
 
     }
+
+    public boolean isAllAsteroidesCreated() {
+        if (asteroides.size() == asteroidesQuantity)
+            return true;
+
+        return false;
+    }
 }

@@ -117,4 +117,9 @@ public class SpaceShip extends GameObject {
         private static final int NORMAL = 1;
         private static final int RIGHT = 2;
     }
+
+    public boolean isExploded() {
+        return explosion;
+
+    }
 }

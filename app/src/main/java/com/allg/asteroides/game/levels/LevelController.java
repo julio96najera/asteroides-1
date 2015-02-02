@@ -9,10 +9,10 @@ import com.allg.asteroides.engine.GameController;
 import com.allg.asteroides.engine.GameState;
 import com.allg.asteroides.game.objects.Asteroide;
 import com.allg.asteroides.game.objects.AsteroideManager;
-import com.allg.asteroides.game.objects.BackgroundMusic;
 import com.allg.asteroides.game.objects.Score;
 import com.allg.asteroides.game.objects.SpaceShip;
 import com.allg.asteroides.game.objects.abstracts.Background;
+import com.allg.asteroides.game.objects.abstracts.Music;
 import com.allg.asteroides.util.SpaceShipControl;
 
 public class LevelController extends GameController {
@@ -25,12 +25,12 @@ public class LevelController extends GameController {
 
     private AsteroideManager asteroideManager;
 
-    private BackgroundMusic music;
+    private Music music;
 
     private LevelManager levelManager;
 
     public LevelController(Context context, SpaceShip ship, Background background,
-                           BackgroundMusic music, int asteroidesNumber, int velocity,
+                           Music music, int asteroidesNumber, int velocity,
                            LevelManager levelManager) {
 
         super(context);

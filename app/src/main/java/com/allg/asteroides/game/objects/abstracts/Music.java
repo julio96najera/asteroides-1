@@ -1,21 +1,20 @@
-package com.allg.asteroides.game.objects;
+package com.allg.asteroides.game.objects.abstracts;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.media.MediaPlayer;
 
-import com.allg.asteroides.R;
 import com.allg.asteroides.engine.GameObject;
 
-public class BackgroundMusic extends GameObject {
+public class Music extends GameObject {
 
     private MediaPlayer player;
     private boolean startAutomatic = true;
 
-    public BackgroundMusic(Context context, boolean startAutomatic) {
+    public Music(Context context, boolean startAutomatic, int resourceid) {
         super(context, 0, 0);
-        player = MediaPlayer.create(context, R.raw.light_years);
         this.startAutomatic = startAutomatic;
+        player = MediaPlayer.create(context, resourceid);
     }
 
     @Override
@@ -28,7 +27,6 @@ public class BackgroundMusic extends GameObject {
 
     @Override
     public void step(Canvas canvas) {
-        startMusic(); //inicia a musica caso ela tenha parado
     }
 
     @Override

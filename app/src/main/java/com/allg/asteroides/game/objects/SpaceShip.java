@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import com.allg.asteroides.R;
 import com.allg.asteroides.engine.GameObject;
 import com.allg.asteroides.engine.Sprite;
+import com.allg.asteroides.game.objects.sound.ExplosionSound;
 
 public class SpaceShip extends GameObject {
 
@@ -39,7 +40,7 @@ public class SpaceShip extends GameObject {
         this.sprite = new Sprite(bitmap, 1, 3, this);
         this.explosionSprite = new Sprite(explosionBitmap, 1, 5, this);
 
-        explosionSound = new ExplosionSound(context, 0, 0);
+        explosionSound = new ExplosionSound(context);
 
     }
 

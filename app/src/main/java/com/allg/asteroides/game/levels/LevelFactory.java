@@ -2,9 +2,9 @@ package com.allg.asteroides.game.levels;
 
 import android.content.Context;
 
-import com.allg.asteroides.game.objects.BackgroundMusic;
-import com.allg.asteroides.game.objects.Fundo1;
-import com.allg.asteroides.game.objects.Fundo2;
+import com.allg.asteroides.game.objects.background.Fundo1;
+import com.allg.asteroides.game.objects.background.Fundo2;
+import com.allg.asteroides.game.objects.music.LightYearsMusic;
 import com.allg.asteroides.game.objects.SpaceShip;
 import com.allg.asteroides.game.objects.abstracts.Background;
 
@@ -17,7 +17,7 @@ public class LevelFactory {
 
         Background background = new Fundo1(context);
 
-        BackgroundMusic music = new BackgroundMusic(context, true);
+        LightYearsMusic music = new LightYearsMusic(context);
 
         LevelController level =
                 new LevelController(context, ship, background, music, 40, 10, manager);
@@ -31,7 +31,7 @@ public class LevelFactory {
 
         Background background = new Fundo2(context);
 
-        BackgroundMusic music = new BackgroundMusic(context, true);
+        LightYearsMusic music = new LightYearsMusic(context);
 
         LevelController level =
                 new LevelController(context, ship, background, music, 100, 20, manager);

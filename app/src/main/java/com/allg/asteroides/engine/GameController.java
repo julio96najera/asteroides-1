@@ -2,12 +2,9 @@ package com.allg.asteroides.engine;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import com.allg.asteroides.game.objects.BackgroundMusic;
 
 public abstract class GameController extends SurfaceView implements Runnable {
 

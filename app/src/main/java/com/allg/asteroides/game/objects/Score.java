@@ -12,12 +12,14 @@ public class Score extends GameObject {
     private int points = 0;
     private Paint paint;
     private SpaceShip ship;
+    private HighScore hScore;
 
     public Score(Context context, SpaceShip ship) {
         super(context, 0, 0);
 
         this.ship = ship;
 
+        hScore = new HighScore(context);
         paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setTextSize(40);
@@ -25,6 +27,7 @@ public class Score extends GameObject {
 
     @Override
     public void initObject(Canvas canvas) {
+        hScore.initObject(canvas);
         x = canvas.getWidth() - 100;
         y = 60;
     }
@@ -36,10 +39,17 @@ public class Score extends GameObject {
         if (ship.getDistance() % 20 == 0) {
             points++;
         }
+
+        if(points > hScore.highScore){
+            int score = points;
+
+            hScore.saveHighScore(score);
+        }
     }
 
     @Override
     public void draw(Canvas canvas) {
         canvas.drawText(points + "", x, y, paint);
+        hScore.draw(canvas);
     }
 }

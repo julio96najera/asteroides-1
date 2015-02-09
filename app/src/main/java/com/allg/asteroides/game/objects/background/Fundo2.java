@@ -14,7 +14,7 @@ public class Fundo2 extends Background {
     public Fundo2(Context context) {
         super(context);
 
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.fundoestrelado);
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.universo2);
         setBitmap(bitmap);
     }
 }

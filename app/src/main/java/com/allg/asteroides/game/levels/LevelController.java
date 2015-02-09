@@ -78,6 +78,7 @@ public class LevelController extends GameController {
 
         if (asteroideManager.isAllAsteroidesCreated() && !ship.isExploded()) {
             playerWin = true;
+            getGameState().setState(GameState.State.END);
         }
 
     }

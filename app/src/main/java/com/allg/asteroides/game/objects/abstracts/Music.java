@@ -19,10 +19,8 @@ public class Music extends GameObject {
 
     @Override
     public void initObject(Canvas canvas) {
-        if (!player.isPlaying() && startAutomatic == true) {
-            player.start();
-        }
-
+        if (startAutomatic)
+            this.startMusic();
     }
 
     @Override
@@ -40,7 +38,10 @@ public class Music extends GameObject {
     }
 
     public void stopMusic() {
-        if (player.isPlaying())
+        if (player.isPlaying()) {
             player.stop();
+            player.release();
+        }
+
     }
 }

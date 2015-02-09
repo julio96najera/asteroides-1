@@ -2,6 +2,7 @@ package com.allg.asteroides.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.allg.asteroides.game.levels.LevelController;
 import com.allg.asteroides.game.levels.LevelManager;
@@ -17,9 +18,9 @@ public class GameActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
         levelManager = new LevelManager(this);
         setContentView(levelManager);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 	
 	@Override

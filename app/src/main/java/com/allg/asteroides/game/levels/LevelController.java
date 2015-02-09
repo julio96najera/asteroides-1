@@ -62,6 +62,7 @@ public class LevelController extends GameController {
     public void stepObjects(Canvas canvas) {
         ship.step(canvas);
         score.step(canvas);
+        background.step(canvas);
         asteroideManager.step(canvas);
 
         for (Asteroide a : asteroideManager.getAsteroides()) {
@@ -89,7 +90,7 @@ public class LevelController extends GameController {
 
     @Override
     public void drawObjectsFinal(Canvas canvas) {
-        background.draw(canvas);
+        background.draw(canvas) ;
         score.draw(canvas);
         ship.draw(canvas);
     }

@@ -10,6 +10,10 @@ import com.allg.asteroides.engine.GameObject;
 public abstract class Background extends GameObject {
 
     private Bitmap bitmap;
+    private int top = 0;
+    private int wait = 0;
+    private int bottom = 0;
+    private int passeY = 5;
 
     public Background(Context context) {
         super(context, 0, 0);
@@ -21,22 +25,34 @@ public abstract class Background extends GameObject {
 
     @Override
     public void initObject(Canvas canvas) {
+
+        bottom = bitmap.getHeight();
+        top = bitmap.getHeight() - canvas.getHeight();
+
     }
 
     @Override
     public void step(Canvas canvas) {
 
+        if(top == 0){
+            top = bitmap.getHeight() - canvas.getHeight();
+            bottom = bitmap.getHeight();
+        }
+
+        if(top!=0){
+            bottom -= passeY;
+            top -= passeY;
+        }
     }
 
     @Override
     public void draw(Canvas canvas) {
 
-        Rect src = new Rect(0, bitmap.getHeight() - canvas.getHeight(),
-                bitmap.getWidth(), bitmap.getHeight());
+        Rect src = new Rect(0, top, bitmap.getWidth(),bottom);
 
-        Rect dst = new Rect(0, 0, canvas.getWidth(), canvas.getHeight());
+        Rect dst = new Rect(0, 0, bitmap.getWidth(), canvas.getHeight());
 
-        canvas.drawBitmap(bitmap, src, dst, null);
+        canvas.drawBitmap(bitmap, src,dst, null);
     }
 
 }

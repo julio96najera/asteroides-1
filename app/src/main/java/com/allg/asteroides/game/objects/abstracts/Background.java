@@ -11,7 +11,6 @@ public abstract class Background extends GameObject {
 
     private Bitmap bitmap;
     private int top = 0;
-    private int wait = 0;
     private int bottom = 0;
     private int passeY = 5;
 
@@ -25,21 +24,17 @@ public abstract class Background extends GameObject {
 
     @Override
     public void initObject(Canvas canvas) {
-
         bottom = bitmap.getHeight();
         top = bitmap.getHeight() - canvas.getHeight();
-
     }
 
     @Override
     public void step(Canvas canvas) {
 
-        if(top == 0){
-            top = bitmap.getHeight() - canvas.getHeight();
-            bottom = bitmap.getHeight();
+        if(top <= 0){
+            initObject(canvas);
         }
-
-        if(top!=0){
+        else {
             bottom -= passeY;
             top -= passeY;
         }
@@ -48,11 +43,11 @@ public abstract class Background extends GameObject {
     @Override
     public void draw(Canvas canvas) {
 
-        Rect src = new Rect(0, top, bitmap.getWidth(),bottom);
+        Rect src = new Rect(0, top, bitmap.getWidth(), bottom);
 
         Rect dst = new Rect(0, 0, bitmap.getWidth(), canvas.getHeight());
 
-        canvas.drawBitmap(bitmap, src,dst, null);
+        canvas.drawBitmap(bitmap, src, dst, null);
     }
 
 }

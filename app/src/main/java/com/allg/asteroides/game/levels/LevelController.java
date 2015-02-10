@@ -13,6 +13,7 @@ import com.allg.asteroides.game.objects.Asteroide;
 import com.allg.asteroides.game.objects.AsteroideManager;
 import com.allg.asteroides.game.objects.Score;
 import com.allg.asteroides.game.objects.SpaceShip;
+import com.allg.asteroides.game.objects.TextCenter;
 import com.allg.asteroides.game.objects.abstracts.Background;
 import com.allg.asteroides.game.objects.abstracts.Music;
 import com.allg.asteroides.util.SpaceShipControl;
@@ -33,6 +34,8 @@ public class LevelController extends GameController {
 
     private boolean playerWin = false;
 
+    private TextCenter textCenter;
+
     public LevelController(Context context, SpaceShip ship, Background background,
                            Music music, int asteroidesNumber, int velocity,
                            LevelManager levelManager) {
@@ -50,6 +53,8 @@ public class LevelController extends GameController {
         this.music = music;
 
         this.levelManager = levelManager;
+
+        this.textCenter = new TextCenter(context, "Você Venceu!", 60, Color.YELLOW);
     }
 
     @Override
@@ -60,6 +65,7 @@ public class LevelController extends GameController {
         score.initObject(canvas);
         asteroideManager.initObject(canvas);
         music.initObject(canvas);
+        textCenter.initObject(canvas);
     }
 
     @Override
@@ -72,14 +78,14 @@ public class LevelController extends GameController {
         for (Asteroide a : asteroideManager.getAsteroides()) {
             if (Collision.isCollided(a, ship)) {
                 ship.explodir();
-                getGameState().setState(GameState.State.END);
+                levelManager.getGameState().setState(GameState.State.END);
                 playerWin = false;
             }
         }
 
         if (asteroideManager.isAllAsteroidesCreated() && !ship.isExploded()) {
             playerWin = true;
-            getGameState().setState(GameState.State.END);
+            levelManager.getGameState().setState(GameState.State.END);
         }
 
     }
@@ -105,9 +111,7 @@ public class LevelController extends GameController {
         ship.draw(canvas);
 
         if (playerWin) {
-            Paint paint = new Paint();
-            paint.setColor(Color.WHITE);
-            canvas.drawText("Você venceu! Toque na tela.", 50, canvas.getHeight() / 2, paint);
+            textCenter.draw(canvas);
         }
     }
 
@@ -118,7 +122,7 @@ public class LevelController extends GameController {
 
     @Override
     public void touchEvent(MotionEvent event) {
-        if (getGameState().getState() == GameState.State.END && playerWin) {
+        if (levelManager.getGameState().getState() == GameState.State.END && playerWin) {
             levelManager.levelFinish();
         }
     }

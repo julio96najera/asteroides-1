@@ -40,7 +40,6 @@ public class Music extends GameObject {
     public void stopMusic() {
         if (player.isPlaying()) {
             player.stop();
-            player.release();
         }
 
     }

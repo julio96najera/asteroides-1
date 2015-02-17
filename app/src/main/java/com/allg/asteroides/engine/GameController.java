@@ -37,7 +37,7 @@ public abstract class GameController extends SurfaceView implements Runnable {
     public abstract void touchEvent(MotionEvent event);
 
     @Override
-    public void run() {
+    public synchronized void run() {
         while (running) { //loop do jogo
             if (!holder.getSurface().isValid())
                 continue;

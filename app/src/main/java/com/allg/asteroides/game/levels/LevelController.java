@@ -78,14 +78,14 @@ public class LevelController extends GameController {
         for (Asteroide a : asteroideManager.getAsteroides()) {
             if (Collision.isCollided(a, ship)) {
                 ship.explodir();
-                levelManager.getGameState().setState(GameState.State.END);
+                getGameState().setState(GameState.State.END);
                 playerWin = false;
             }
         }
 
         if (asteroideManager.isAllAsteroidesCreated() && !ship.isExploded()) {
             playerWin = true;
-            levelManager.getGameState().setState(GameState.State.END);
+            getGameState().setState(GameState.State.END);
         }
 
     }
@@ -122,7 +122,7 @@ public class LevelController extends GameController {
 
     @Override
     public void touchEvent(MotionEvent event) {
-        if (levelManager.getGameState().getState() == GameState.State.END && playerWin) {
+        if (getGameState().getState() == GameState.State.END && playerWin) {
             levelManager.levelFinish();
         }
     }

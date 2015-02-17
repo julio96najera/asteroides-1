@@ -2,14 +2,10 @@ package com.allg.asteroides.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.transition.TransitionManager;
 import android.view.WindowManager;
 
-import com.allg.asteroides.game.levels.LevelController;
 import com.allg.asteroides.game.levels.LevelManager;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
 
 public class GameActivity extends Activity {
 
@@ -18,26 +14,27 @@ public class GameActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        levelManager = new LevelManager(this);
-        setContentView(levelManager);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-	}
+
+        levelManager = new LevelManager(this);
+        levelManager.onCreate();
+    }
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-        levelManager.resume();
+        levelManager.onResume();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-        levelManager.stop();
+        levelManager.onStop();
 	}
 	
 	@Override
 	protected void onStop() {
-		super.onStop();
-        levelManager.stop();
+        levelManager.onStop();
+        super.onStop();
 	}
 }

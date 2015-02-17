@@ -2,6 +2,7 @@ package com.allg.asteroides.game.objects;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import com.allg.asteroides.engine.GameObject;
 
@@ -42,8 +43,14 @@ public class AsteroideManager extends GameObject {
     public void step(Canvas canvas) {
         createAsteroide(canvas);
 
-        for (Asteroide a : asteroides)
-            a.step(canvas);
+        for (Asteroide a : asteroides) {
+            if (a.getY() > canvas.getHeight()) {
+                asteroides.remove(a);
+                Log.i("AsteroideManager", "Asteroide Removido");
+            }
+            else
+                a.step(canvas);
+        }
     }
 
     @Override

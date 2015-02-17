@@ -2,6 +2,7 @@ package com.allg.asteroides.game.objects.abstracts;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
@@ -10,16 +11,16 @@ import com.allg.asteroides.engine.GameObject;
 public abstract class Background extends GameObject {
 
     private Bitmap bitmap;
+    private BitmapFactory.Options options;
     private int top = 0;
     private int bottom = 0;
     private int passeY = 5;
 
-    public Background(Context context) {
+    public Background(Context context, int resourceid) {
         super(context, 0, 0);
-    }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+        options = new BitmapFactory.Options();
+        bitmap = BitmapFactory.decodeResource(getResources(), resourceid, options);
     }
 
     @Override
@@ -43,9 +44,9 @@ public abstract class Background extends GameObject {
     @Override
     public void draw(Canvas canvas) {
 
-        Rect src = new Rect(0, top, bitmap.getWidth(), bottom);
+        Rect src = new Rect(0, top, canvas.getWidth(), bottom);
 
-        Rect dst = new Rect(0, 0, bitmap.getWidth(), canvas.getHeight());
+        Rect dst = new Rect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         canvas.drawBitmap(bitmap, src, dst, null);
     }

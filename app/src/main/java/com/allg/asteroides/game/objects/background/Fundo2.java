@@ -9,12 +9,7 @@ import com.allg.asteroides.game.objects.abstracts.Background;
 
 public class Fundo2 extends Background {
 
-    private Bitmap bitmap;
-
     public Fundo2(Context context) {
-        super(context);
-
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.universo2);
-        setBitmap(bitmap);
+        super(context, R.drawable.universo2);
     }
 }

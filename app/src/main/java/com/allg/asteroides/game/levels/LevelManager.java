@@ -12,5 +12,6 @@ public class LevelManager extends GameManager {
         //adicionando os níveis para lista levels herdada por protected de GameManager
         levels.add(LevelFactory.createLevel1(context, this));
         levels.add(LevelFactory.createLevel2(context, this));
+        levels.add(LevelFactory.createLevel3(context, this));
     }
 }

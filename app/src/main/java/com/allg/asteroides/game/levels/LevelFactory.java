@@ -20,7 +20,7 @@ public class LevelFactory {
         LightYearsMusic music = new LightYearsMusic(context);
 
         LevelController level =
-                new LevelController(context, ship, background, music, 40, 10, manager);
+                new LevelController(context, ship, background, music, 10, 10, manager);
 
         return level;
     }
@@ -34,7 +34,7 @@ public class LevelFactory {
         LightYearsMusic music = new LightYearsMusic(context);
 
         LevelController level =
-                new LevelController(context, ship, background, music, 100, 20, manager);
+                new LevelController(context, ship, background, music, 50, 20, manager);
 
         return level;
     }

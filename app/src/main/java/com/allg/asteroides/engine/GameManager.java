@@ -5,14 +5,14 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.allg.asteroides.game.levels.LevelController;
+import com.allg.asteroides.game.levels.AsteroidesLevelController;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameManager extends GameController {
 
-    protected List<LevelController> levels;
+    protected List<ControllerInterface> levels;
     private int current = 0;
 
     public GameManager(Context context) {
@@ -61,10 +61,12 @@ public class GameManager extends GameController {
         current = ++current % levels.size();
         Log.d("GameManager", "Troca de Nível: current == "+current);
 
+        setGameState(State.INTRO);
+
         resume();
     }
 
-    private LevelController getCurrentLevel() {
+    private ControllerInterface getCurrentLevel() {
         return levels.get(current);
     }
 

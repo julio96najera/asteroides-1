@@ -17,7 +17,7 @@ import com.allg.asteroides.game.objects.abstracts.Background;
 import com.allg.asteroides.game.objects.abstracts.Music;
 import com.allg.asteroides.util.SpaceShipControl;
 
-public class LevelController implements ControllerInterface {
+public class AsteroidesLevelController implements ControllerInterface {
 
     private SpaceShip ship;
     private SpaceShipControl shipControl;
@@ -35,9 +35,9 @@ public class LevelController implements ControllerInterface {
 
     private TextCenter textCenter;
 
-    public LevelController(Context context, SpaceShip ship, Background background,
-                           Music music, int asteroidesNumber, int velocity,
-                           LevelManager levelManager) {
+    public AsteroidesLevelController(Context context, SpaceShip ship, Background background,
+                                     Music music, int asteroidesNumber, int velocity,
+                                     LevelManager levelManager) {
 
         super();
         this.ship = ship;

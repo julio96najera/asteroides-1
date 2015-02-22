@@ -1,6 +1,7 @@
 package com.allg.asteroides.game.objects;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,6 +14,11 @@ public class Score extends GameObject {
     private Paint paint;
     private SpaceShip ship;
     private HighScore hScore;
+
+    public final String PREFS_NAME = "Score";
+    private final String KEY = "scoreCache";
+    private SharedPreferences sharedPreferences;
+    SharedPreferences.Editor prefsPrivateEditor;
 
     public Score(Context context, SpaceShip ship) {
         super(context, 0, 0);
@@ -30,6 +36,11 @@ public class Score extends GameObject {
         hScore.initObject(canvas);
         x = canvas.getWidth() - 100;
         y = 60;
+
+        sharedPreferences = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        prefsPrivateEditor = sharedPreferences.edit();
+
+        points = sharedPreferences.getInt(KEY, 0);
     }
 
     @Override
@@ -51,5 +62,15 @@ public class Score extends GameObject {
     public void draw(Canvas canvas) {
         canvas.drawText(points + "", x, y, paint);
         hScore.draw(canvas);
+    }
+
+    public void saveCacheScore() {
+        prefsPrivateEditor.putInt(KEY, points);
+        prefsPrivateEditor.commit();
+    }
+
+    public void clearCacheScore() {
+        prefsPrivateEditor.putInt(KEY, 0);
+        prefsPrivateEditor.commit();
     }
 }

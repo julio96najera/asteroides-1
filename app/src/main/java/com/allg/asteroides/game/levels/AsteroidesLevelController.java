@@ -111,6 +111,9 @@ public class AsteroidesLevelController implements ControllerInterface {
 
         if (playerWin) {
             textCenter.draw(canvas);
+            score.saveCacheScore();
+        } else {
+            score.clearCacheScore();
         }
     }
 

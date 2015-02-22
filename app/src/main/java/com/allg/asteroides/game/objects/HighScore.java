@@ -16,7 +16,7 @@ public class HighScore extends GameObject{
     private SharedPreferences sharedPreferences;
 
     private Paint paint;
-    int highScore;
+    public int highScore;
 
     public HighScore(Context context) {
         super(context, 0, 0);
@@ -29,6 +29,9 @@ public class HighScore extends GameObject{
     public void initObject(Canvas canvas) {
         x = canvas.getWidth() - 200;
         y = 60;
+
+        sharedPreferences = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        highScore = sharedPreferences.getInt("score", 0);
     }
 
     public void saveHighScore(int score){
@@ -41,13 +44,11 @@ public class HighScore extends GameObject{
 
     @Override
     public void step(Canvas canvas) {
-
+        highScore = sharedPreferences.getInt("score", 0);
     }
 
     @Override
     public void draw(Canvas canvas) {
-        sharedPreferences = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        highScore = sharedPreferences.getInt("score", 0);
         canvas.drawText(highScore + "", x, y, paint);
     }
 }

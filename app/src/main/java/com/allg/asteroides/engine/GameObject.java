@@ -14,8 +14,9 @@ public abstract class GameObject extends View {
 	
 	public GameObject(Context context, int x, int y) {
 		super(context);
-		setX(x);
-		setY(y);
+
+        this.x = x;
+        this.y = y;
 	}
 	
 	public abstract void initObject(Canvas canvas);

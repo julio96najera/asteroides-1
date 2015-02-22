@@ -47,7 +47,7 @@ public class AsteroideManager extends GameObject {
         asteroidesOutOfDisplay = 0;
 
         for (Asteroide a : asteroides) {
-            if (a.getPosY() > canvas.getHeight())
+            if (a.isBottom(canvas))
                 asteroidesOutOfDisplay++;
             else
                 a.step(canvas);
@@ -57,7 +57,7 @@ public class AsteroideManager extends GameObject {
     @Override
     public void draw(Canvas canvas) {
         for (Asteroide a : asteroides)
-            if (a.getPosY() < canvas.getHeight())
+            if (!a.isBottom(canvas))
                 a.draw(canvas);
     }
 

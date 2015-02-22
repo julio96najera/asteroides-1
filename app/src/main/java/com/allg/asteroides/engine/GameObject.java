@@ -22,4 +22,11 @@ public abstract class GameObject extends View {
 	public abstract void step(Canvas canvas);
 	public abstract void draw(Canvas canvas);
 
+    public int getPosY() {
+        return y;
+    }
+
+    public int getPosX() {
+        return x;
+    }
 }

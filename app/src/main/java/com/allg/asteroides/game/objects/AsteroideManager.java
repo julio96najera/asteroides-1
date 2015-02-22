@@ -19,6 +19,7 @@ public class AsteroideManager extends GameObject {
     private int creationInterval; //interações por criação de asteroide
 
     private int creationSteps = 0;
+    private int asteroidesOutOfDisplay;
 
     public AsteroideManager(Context context, int asteroidesQuantity, int velocity) {
         super(context, 0, 0);
@@ -27,7 +28,7 @@ public class AsteroideManager extends GameObject {
         this.asteroidesQuantity = asteroidesQuantity;
         this.velocity = velocity;
 
-        this.creationInterval = 40 + (((1 / velocity) * 200) % 30);
+        this.creationInterval = 40;
     }
 
     public List<Asteroide> getAsteroides() {
@@ -43,11 +44,11 @@ public class AsteroideManager extends GameObject {
     public void step(Canvas canvas) {
         createAsteroide(canvas);
 
+        asteroidesOutOfDisplay = 0;
+
         for (Asteroide a : asteroides) {
-            if (a.getY() > canvas.getHeight()) {
-                asteroides.remove(a);
-                Log.i("AsteroideManager", "Asteroide Removido");
-            }
+            if (a.getPosY() > canvas.getHeight())
+                asteroidesOutOfDisplay++;
             else
                 a.step(canvas);
         }
@@ -56,7 +57,8 @@ public class AsteroideManager extends GameObject {
     @Override
     public void draw(Canvas canvas) {
         for (Asteroide a : asteroides)
-            a.draw(canvas);
+            if (a.getPosY() < canvas.getHeight())
+                a.draw(canvas);
     }
 
     private void createAsteroide(Canvas canvas) {
@@ -81,9 +83,6 @@ public class AsteroideManager extends GameObject {
     }
 
     public boolean isAllAsteroidesCreated() {
-        if (asteroides.size() == asteroidesQuantity)
-            return true;
-
-        return false;
+        return (asteroidesOutOfDisplay >= asteroidesQuantity);
     }
 }

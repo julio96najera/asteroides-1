@@ -1,57 +1,84 @@
 package com.allg.asteroides.engine;
 
-import android.app.Activity;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.MotionEvent;
 
-import com.allg.asteroides.game.levels.LevelController;
+import com.allg.asteroides.game.levels.AsteroidesLevelController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameManager {
+public class GameManager extends GameController {
 
-    protected List<LevelController> levels;
-    private LevelController currentLevel;
+    protected List<ControllerInterface> levels;
     private int current = 0;
 
-    private Activity activity;
-
     public GameManager(Context context) {
+        super(context);
         levels = new ArrayList<>();
-
-        this.activity = (Activity) context;
     }
 
-    private synchronized void changeLevel() {
-        currentLevel.stop();
+    @Override
+    public void initObjects(Canvas canvas) {
+        getCurrentLevel().initObjects(canvas);
+    }
+
+    @Override
+    public void stepObjects(Canvas canvas) {
+        getCurrentLevel().stepObjects(canvas);
+    }
+
+    @Override
+    public void drawObjects(Canvas canvas) {
+        getCurrentLevel().drawObjects(canvas);
+    }
+
+    @Override
+    public void stepObjectsFinal(Canvas canvas) {
+        getCurrentLevel().stepObjectsFinal(canvas);
+    }
+
+    @Override
+    public void drawObjectsFinal(Canvas canvas) {
+        getCurrentLevel().drawObjectsFinal(canvas);
+    }
+
+    @Override
+    public void unloadObjects() {
+        getCurrentLevel().unloadObjects();
+    }
+
+    @Override
+    public void touchEvent(MotionEvent event) {
+        getCurrentLevel().touchEvent(event);
+    }
+
+    private void changeLevel() {
+        stop();
 
         current = ++current % levels.size();
         Log.d("GameManager", "Troca de Nível: current == "+current);
 
-        currentLevel = levels.get(current);
+        setGameState(State.INTRO);
 
-        activity.setContentView(currentLevel);
+        resume();
+    }
 
-        currentLevel.resume();
+    private ControllerInterface getCurrentLevel() {
+        return levels.get(current);
     }
 
     public void levelFinish() {
         changeLevel();
     }
 
-    public void onCreate() {
-        currentLevel = levels.get(current);
-        activity.setContentView(currentLevel);
-    }
-
     public void onResume() {
-        currentLevel.resume();
+        resume();
     }
 
     public void onStop() {
-        currentLevel.stop();
+        stop();
     }
 }

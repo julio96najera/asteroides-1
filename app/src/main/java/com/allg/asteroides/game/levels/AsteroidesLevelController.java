@@ -3,12 +3,11 @@ package com.allg.asteroides.game.levels;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.MotionEvent;
 
 import com.allg.asteroides.engine.Collision;
-import com.allg.asteroides.engine.GameController;
-import com.allg.asteroides.engine.GameState;
+import com.allg.asteroides.engine.ControllerInterface;
+import com.allg.asteroides.engine.GameManager;
 import com.allg.asteroides.game.objects.Asteroide;
 import com.allg.asteroides.game.objects.AsteroideManager;
 import com.allg.asteroides.game.objects.Score;
@@ -18,7 +17,7 @@ import com.allg.asteroides.game.objects.abstracts.Background;
 import com.allg.asteroides.game.objects.abstracts.Music;
 import com.allg.asteroides.util.SpaceShipControl;
 
-public class LevelController extends GameController {
+public class AsteroidesLevelController implements ControllerInterface {
 
     private SpaceShip ship;
     private SpaceShipControl shipControl;
@@ -36,11 +35,11 @@ public class LevelController extends GameController {
 
     private TextCenter textCenter;
 
-    public LevelController(Context context, SpaceShip ship, Background background,
-                           Music music, int asteroidesNumber, int velocity,
-                           LevelManager levelManager) {
+    public AsteroidesLevelController(Context context, SpaceShip ship, Background background,
+                                     Music music, int asteroidesNumber, int velocity,
+                                     LevelManager levelManager) {
 
-        super(context);
+        super();
         this.ship = ship;
         this.shipControl = new SpaceShipControl(context, ship);
 
@@ -78,14 +77,14 @@ public class LevelController extends GameController {
         for (Asteroide a : asteroideManager.getAsteroides()) {
             if (Collision.isCollided(a, ship)) {
                 ship.explodir();
-                getGameState().setState(GameState.State.END);
+                levelManager.setGameState(GameManager.State.END);
                 playerWin = false;
             }
         }
 
         if (asteroideManager.isAllAsteroidesCreated() && !ship.isExploded()) {
             playerWin = true;
-            getGameState().setState(GameState.State.END);
+            levelManager.setGameState(GameManager.State.END);
         }
 
     }
@@ -122,7 +121,7 @@ public class LevelController extends GameController {
 
     @Override
     public void touchEvent(MotionEvent event) {
-        if (getGameState().getState() == GameState.State.END && playerWin) {
+        if (levelManager.getGameState() == GameManager.State.END && playerWin) {
             levelManager.levelFinish();
         }
     }

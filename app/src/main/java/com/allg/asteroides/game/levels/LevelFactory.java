@@ -11,7 +11,10 @@ import com.allg.asteroides.game.objects.abstracts.Background;
 
 public class LevelFactory {
 
-    public static LevelController createLevel1(Context context, LevelManager manager) {
+    private static int quantityOfAsteroids;
+    private static int velocity;
+
+    public static AsteroidesLevelController createLevel1(Context context, LevelManager manager) {
 
         SpaceShip ship = new SpaceShip(context, 0, 0);
 
@@ -19,13 +22,16 @@ public class LevelFactory {
 
         LightYearsMusic music = new LightYearsMusic(context);
 
-        LevelController level =
-                new LevelController(context, ship, background, music, 40, 10, manager);
+        quantityOfAsteroids = 20;
+        velocity = 10;
+
+        AsteroidesLevelController level =
+                new AsteroidesLevelController(context, ship, background, music, quantityOfAsteroids, velocity, manager);
 
         return level;
     }
 
-    public static LevelController createLevel2(Context context, LevelManager manager) {
+    public static AsteroidesLevelController createLevel2(Context context, LevelManager manager) {
 
         SpaceShip ship = new SpaceShip(context, 0, 0);
 
@@ -33,8 +39,28 @@ public class LevelFactory {
 
         LightYearsMusic music = new LightYearsMusic(context);
 
-        LevelController level =
-                new LevelController(context, ship, background, music, 100, 20, manager);
+        quantityOfAsteroids = 40;
+        velocity = 15;
+
+        AsteroidesLevelController level =
+                new AsteroidesLevelController(context, ship, background, music, quantityOfAsteroids, velocity, manager);
+
+        return level;
+    }
+
+    public static AsteroidesLevelController createLevel3(Context context, LevelManager manager) {
+
+        SpaceShip ship = new SpaceShip(context, 0, 0);
+
+        Background background = new Fundo2(context);
+
+        LightYearsMusic music = new LightYearsMusic(context);
+
+        quantityOfAsteroids = 80;
+        velocity = 20;
+
+        AsteroidesLevelController level =
+                new AsteroidesLevelController(context, ship, background, music, quantityOfAsteroids, velocity, manager);
 
         return level;
     }

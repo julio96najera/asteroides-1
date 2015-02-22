@@ -13,19 +13,19 @@ public class GameActivity extends FullscreenActivity {
 		super.onCreate(savedInstanceState);
 
         levelManager = new LevelManager(this);
-        levelManager.onCreate();
+        setContentView(levelManager);
     }
 	
 	@Override
 	protected void onResume() {
-		super.onResume();
         levelManager.onResume();
+        super.onResume();
 	}
 
 	@Override
 	protected void onPause() {
-		super.onPause();
         levelManager.onStop();
+        super.onPause();
 	}
 	
 	@Override

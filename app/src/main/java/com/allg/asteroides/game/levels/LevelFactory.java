@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.allg.asteroides.game.objects.background.Fundo1;
 import com.allg.asteroides.game.objects.background.Fundo2;
+import com.allg.asteroides.game.objects.music.CopShowMusic;
+import com.allg.asteroides.game.objects.music.DigitalFalloutMusic;
 import com.allg.asteroides.game.objects.music.LightYearsMusic;
 import com.allg.asteroides.game.objects.SpaceShip;
 import com.allg.asteroides.game.objects.abstracts.Background;
@@ -20,7 +22,7 @@ public class LevelFactory {
 
         Background background = new Fundo1(context);
 
-        LightYearsMusic music = new LightYearsMusic(context);
+        LightYearsMusic music = new LightYearsMusic(context, true);
 
         quantityOfAsteroids = 20;
         velocity = 10;
@@ -37,7 +39,7 @@ public class LevelFactory {
 
         Background background = new Fundo2(context);
 
-        LightYearsMusic music = new LightYearsMusic(context);
+        DigitalFalloutMusic music = new DigitalFalloutMusic(context, true);
 
         quantityOfAsteroids = 40;
         velocity = 15;
@@ -54,7 +56,7 @@ public class LevelFactory {
 
         Background background = new Fundo2(context);
 
-        LightYearsMusic music = new LightYearsMusic(context);
+        CopShowMusic music = new CopShowMusic(context, true);
 
         quantityOfAsteroids = 80;
         velocity = 20;

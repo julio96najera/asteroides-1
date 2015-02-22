@@ -5,10 +5,10 @@ import android.content.Context;
 import com.allg.asteroides.R;
 import com.allg.asteroides.game.objects.abstracts.Music;
 
-public class LightYearsMusic extends Music {
+public class DigitalFalloutMusic extends Music {
 
-    public LightYearsMusic(Context context, boolean startAutomatic) {
-        super(context, startAutomatic, R.raw.light_years);
+    public DigitalFalloutMusic(Context context, boolean startAutomatic) {
+        super(context, startAutomatic, R.raw.digital_fallout);
 
         //Source: http://soundimage.org/sci-fi/
     }

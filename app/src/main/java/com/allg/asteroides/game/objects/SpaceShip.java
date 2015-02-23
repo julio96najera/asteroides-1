@@ -10,6 +10,8 @@ import com.allg.asteroides.engine.GameObject;
 import com.allg.asteroides.engine.Sprite;
 import com.allg.asteroides.game.objects.sound.ExplosionSound;
 
+import java.util.List;
+
 public class SpaceShip extends GameObject {
 
     private Bitmap bitmap;
@@ -29,6 +31,8 @@ public class SpaceShip extends GameObject {
 
     private int distance = 0;
 
+    private Gun gun;
+
     public SpaceShip(Context context, int x, int y) {
         super(context, x, y);
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.spaceship);
@@ -42,11 +46,15 @@ public class SpaceShip extends GameObject {
 
         explosionSound = new ExplosionSound(context);
 
+        gun = new Gun(context, this);
+
     }
 
     public void initObject(Canvas canvas) {
         x = canvas.getWidth() / 2 - width / 2;
         y = canvas.getHeight() - (height + 10);
+
+        gun.initObject(canvas);
     }
 
     public void irEsquerda() {
@@ -77,6 +85,8 @@ public class SpaceShip extends GameObject {
                     x += passoX;
                 }
             }
+
+            gun.step(canvas);
         } else {
             if (!explosionSoundFinish) {
                 explosionSound.startSound();
@@ -100,6 +110,7 @@ public class SpaceShip extends GameObject {
             explosionWaitCount++;
         } else {
             sprite.draw(canvas, 0, direcao);
+            gun.draw(canvas);
         }
 
     }
@@ -110,6 +121,14 @@ public class SpaceShip extends GameObject {
 
     public int getDistance() {
         return distance;
+    }
+
+    public List<Shot> getShots() {
+        return gun.getShots();
+    }
+
+    public void disparar() {
+        gun.disparar();
     }
 
     private class Direction {

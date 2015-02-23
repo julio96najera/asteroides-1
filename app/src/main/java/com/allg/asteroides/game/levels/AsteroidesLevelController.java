@@ -11,6 +11,7 @@ import com.allg.asteroides.engine.GameManager;
 import com.allg.asteroides.game.objects.Asteroide;
 import com.allg.asteroides.game.objects.AsteroideManager;
 import com.allg.asteroides.game.objects.Score;
+import com.allg.asteroides.game.objects.Shot;
 import com.allg.asteroides.game.objects.SpaceShip;
 import com.allg.asteroides.game.objects.TextCenter;
 import com.allg.asteroides.game.objects.abstracts.Background;
@@ -80,6 +81,12 @@ public class AsteroidesLevelController implements ControllerInterface {
                 levelManager.setGameState(GameManager.State.END);
                 playerWin = false;
             }
+
+            for (Shot shot : ship.getShots()) {
+                if (Collision.isCollided(shot, a)) {
+                    a.explodir();
+                }
+            }
         }
 
         if (asteroideManager.isAllAsteroidesCreated() && !ship.isExploded()) {
@@ -126,6 +133,8 @@ public class AsteroidesLevelController implements ControllerInterface {
     public void touchEvent(MotionEvent event) {
         if (levelManager.getGameState() == GameManager.State.END && playerWin) {
             levelManager.levelFinish();
+        } else {
+            ship.disparar();
         }
     }
 }

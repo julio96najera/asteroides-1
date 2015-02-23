@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.allg.asteroides.game.objects.background.Fundo1;
 import com.allg.asteroides.game.objects.background.Fundo2;
+import com.allg.asteroides.game.objects.background.Fundo3;
 import com.allg.asteroides.game.objects.music.CopShowMusic;
 import com.allg.asteroides.game.objects.music.DigitalFalloutMusic;
 import com.allg.asteroides.game.objects.music.LightYearsMusic;
@@ -54,7 +55,7 @@ public class LevelFactory {
 
         SpaceShip ship = new SpaceShip(context, 0, 0);
 
-        Background background = new Fundo2(context);
+        Background background = new Fundo3(context);
 
         CopShowMusic music = new CopShowMusic(context, true);
 

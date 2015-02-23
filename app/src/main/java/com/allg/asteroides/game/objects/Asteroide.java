@@ -49,14 +49,13 @@ public class Asteroide extends GameObject {
 
     @Override
     public void step(Canvas canvas) {
-        if (exploded) {
+        y += passoY;
+
+        if (exploded)
             if (!explosionSoundFinish) {
                 explosionSound.startSound();
                 explosionSoundFinish = true;
             }
-        } else {
-            y += passoY;
-        }
     }
 
     @Override

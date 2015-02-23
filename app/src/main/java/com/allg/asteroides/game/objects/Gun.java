@@ -31,9 +31,11 @@ public class Gun extends GameObject {
 
     @Override
     public void step(Canvas canvas) {
-
-        for (Shot shot : shots) {
-            shot.step(canvas);
+        for (int i = 0; i < shots.size(); i++) {
+            if (shots.get(i).getPosY() < 0)
+                shots.remove(i);
+            else
+                shots.get(i).step(canvas);
         }
     }
 

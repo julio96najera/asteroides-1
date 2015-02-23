@@ -86,4 +86,8 @@ public class Asteroide extends GameObject {
     public void explodir() {
         exploded = true;
     }
+
+    public boolean isExploded() {
+        return exploded;
+    }
 }

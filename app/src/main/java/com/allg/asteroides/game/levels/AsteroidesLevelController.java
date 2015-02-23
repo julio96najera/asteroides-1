@@ -76,7 +76,7 @@ public class AsteroidesLevelController implements ControllerInterface {
         asteroideManager.step(canvas);
 
         for (Asteroide a : asteroideManager.getAsteroides()) {
-            if (Collision.isCollided(a, ship)) {
+            if (Collision.isCollided(a, ship) && !a.isExploded()) {
                 ship.explodir();
                 levelManager.setGameState(GameManager.State.END);
                 playerWin = false;

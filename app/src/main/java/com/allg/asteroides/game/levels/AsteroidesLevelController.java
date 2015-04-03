@@ -82,10 +82,14 @@ public class AsteroidesLevelController implements ControllerInterface {
                 playerWin = false;
             }
 
-            for (Shot shot : ship.getShots()) {
-                if (Collision.isCollided(shot, a)) {
-                    a.explodir();
+            try {
+                for (Shot shot : ship.getShots()) {
+                    if (Collision.isCollided(shot, a)) {
+                        a.explodir();
+                    }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 

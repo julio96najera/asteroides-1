@@ -2,11 +2,12 @@ package com.allg.asteroides.game.objects;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.widget.Space;
+import android.util.Log;
 
 import com.allg.asteroides.engine.GameObject;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class Gun extends GameObject {
@@ -41,13 +42,23 @@ public class Gun extends GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        for (Shot shot : shots) {
-            shot.draw(canvas);
+        try {
+            for (Shot shot : shots) {
+                shot.draw(canvas);
+            }
+        } catch (ConcurrentModificationException e) {
+            Log.e("Gun", "Modificação concorrente da lista de tiros, cancelando esse tiro.");
+            e.printStackTrace();
         }
     }
 
     public void disparar() {
-        Shot shot = new Shot(getContext(), ship.getPosX(), ship.getPosY());
-        shots.add(shot);
+        try {
+            Shot shot = new Shot(getContext(), ship.getPosX(), ship.getPosY());
+            shots.add(shot);
+        } catch (ConcurrentModificationException e) {
+            Log.e("Gun", "Modificação concorrente da lista de tiros, cancelando esse tiro.");
+            e.printStackTrace();
+        }
     }
 }

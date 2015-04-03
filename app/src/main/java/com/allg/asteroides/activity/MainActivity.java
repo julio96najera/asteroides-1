@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.allg.asteroides.R;
 import com.allg.asteroides.game.objects.Main;
 
 
@@ -39,7 +38,7 @@ public class MainActivity extends FullscreenActivity {
 
         if(event.getY() >= main.start_y && event.getY() <= (main.start_y + main.start.getHeight())){
             if(event.getX() >= main.x && event.getX() <= (main.x + main.start.getWidth())){
-                start(view);
+                start(null);
             }
         }
 
@@ -51,7 +50,7 @@ public class MainActivity extends FullscreenActivity {
 
         if(event.getY() >= main.creditos_y && event.getY() <= (main.creditos_y + main.creditos.getHeight())){
             if(event.getX() >= main.x && event.getX() <= (main.x + main.opcoes.getWidth())){
-                credits(view);
+                credits(null);
             }
         }
         return super.onTouchEvent(event);

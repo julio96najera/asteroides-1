@@ -127,6 +127,10 @@ public class SpaceShip extends GameObject {
         return gun.getShots();
     }
 
+    public void delShots(Shot i) {
+        gun.delShots(i);
+    }
+
     public void disparar() {
         gun.disparar();
     }

@@ -54,11 +54,18 @@ public class Gun extends GameObject {
 
     public void disparar() {
         try {
-            Shot shot = new Shot(getContext(), ship.getPosX(), ship.getPosY());
-            shots.add(shot);
+            if(shots.size() <= 2) {
+                Shot shot = new Shot(getContext(), ship.getPosX(), ship.getPosY());
+                shots.add(shot);
+            }
         } catch (ConcurrentModificationException e) {
             Log.e("Gun", "Modificação concorrente da lista de tiros, cancelando esse tiro.");
             e.printStackTrace();
         }
     }
+
+    public void delShots(Shot i){
+        shots.remove(i);
+    }
+
 }

@@ -29,7 +29,7 @@ public class Shot extends GameObject {
 
     @Override
     public void step(Canvas canvas) {
-        y -= 5;
+        y -= 13;
     }
 
     @Override

@@ -85,6 +85,7 @@ public class AsteroidesLevelController implements ControllerInterface {
             try {
                 for (Shot shot : ship.getShots()) {
                     if (Collision.isCollided(shot, a)) {
+                        ship.delShots(shot);
                         a.explodir();
                     }
                 }

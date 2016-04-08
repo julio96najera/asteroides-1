@@ -25,7 +25,7 @@ public class LevelFactory {
 
         LightYearsMusic music = new LightYearsMusic(context, true);
 
-        quantityOfAsteroids = 30;
+        quantityOfAsteroids = 90;
         velocity = 15;
 
         AsteroidesLevelController level =
@@ -42,7 +42,7 @@ public class LevelFactory {
 
         DigitalFalloutMusic music = new DigitalFalloutMusic(context, true);
 
-        quantityOfAsteroids = 60;
+        quantityOfAsteroids = 150;
         velocity = 20;
 
         AsteroidesLevelController level =
@@ -59,7 +59,7 @@ public class LevelFactory {
 
         CopShowMusic music = new CopShowMusic(context, true);
 
-        quantityOfAsteroids = 100;
+        quantityOfAsteroids = 300;
         velocity = 25;
 
         AsteroidesLevelController level =

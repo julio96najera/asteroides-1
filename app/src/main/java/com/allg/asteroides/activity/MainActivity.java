@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.allg.asteroides.R;
 import com.allg.asteroides.game.objects.Main;
 
 
@@ -15,10 +16,10 @@ public class MainActivity extends FullscreenActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
-        main = new Main(this);
-        setContentView(main);
+        //main = new Main(this);
+        //setContentView(main);
 
     }
 
@@ -27,12 +28,16 @@ public class MainActivity extends FullscreenActivity {
         startActivity(intent);
     }
 
+    public void opcoes(View view){
+
+    }
+
     public void credits(View view){
         Intent intent = new Intent(this, CreditsActivity.class);
         startActivity(intent);
     }
 
-    @Override
+    /*@Override
     public boolean onTouchEvent(MotionEvent event) {
         View view = new View(this);
 
@@ -54,5 +59,5 @@ public class MainActivity extends FullscreenActivity {
             }
         }
         return super.onTouchEvent(event);
-    }
+    }*/
 }

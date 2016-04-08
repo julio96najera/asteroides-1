@@ -31,9 +31,9 @@ public class Main extends GameObject{
         super(context, 0, 0);
 
         background = BitmapFactory.decodeResource(getResources(), R.drawable.background_menu);
-        start = BitmapFactory.decodeResource(getResources(), R.drawable.start);
-        opcoes = BitmapFactory.decodeResource(getResources(), R.drawable.opcoes);
-        creditos = BitmapFactory.decodeResource(getResources(), R.drawable.creditos);
+        start = BitmapFactory.decodeResource(getResources(), R.drawable.ic_start);
+        opcoes = BitmapFactory.decodeResource(getResources(), R.drawable.ic_opcoes);
+        creditos = BitmapFactory.decodeResource(getResources(), R.drawable.ic_creditos);
 
     }
 

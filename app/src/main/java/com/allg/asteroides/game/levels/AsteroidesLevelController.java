@@ -8,8 +8,8 @@ import android.view.MotionEvent;
 import com.allg.asteroides.engine.Collision;
 import com.allg.asteroides.engine.ControllerInterface;
 import com.allg.asteroides.engine.GameManager;
-import com.allg.asteroides.game.objects.Asteroide;
-import com.allg.asteroides.game.objects.AsteroideManager;
+import com.allg.asteroides.game.objects.Asteroid;
+import com.allg.asteroides.game.objects.AsteroidManager;
 import com.allg.asteroides.game.objects.Score;
 import com.allg.asteroides.game.objects.Shot;
 import com.allg.asteroides.game.objects.SpaceShip;
@@ -26,7 +26,7 @@ public class AsteroidesLevelController implements ControllerInterface {
 
     private Background background;
 
-    private AsteroideManager asteroideManager;
+    private AsteroidManager asteroidManager;
 
     private Music music;
 
@@ -48,7 +48,7 @@ public class AsteroidesLevelController implements ControllerInterface {
 
         this.score = new Score(context, ship);
 
-        this.asteroideManager = new AsteroideManager(context, asteroidesNumber, velocity);
+        this.asteroidManager = new AsteroidManager(context, asteroidesNumber, velocity);
 
         this.music = music;
 
@@ -63,7 +63,7 @@ public class AsteroidesLevelController implements ControllerInterface {
         shipControl.startControl();
         background.initObject(canvas);
         score.initObject(canvas);
-        asteroideManager.initObject(canvas);
+        asteroidManager.initObject(canvas);
         music.initObject(canvas);
         textCenter.initObject(canvas);
     }
@@ -73,9 +73,9 @@ public class AsteroidesLevelController implements ControllerInterface {
         ship.step(canvas);
         score.step(canvas);
         background.step(canvas);
-        asteroideManager.step(canvas);
+        asteroidManager.step(canvas);
 
-        for (Asteroide a : asteroideManager.getAsteroides()) {
+        for (Asteroid a : asteroidManager.getAsteroids()) {
             if (Collision.isCollided(a, ship) && !a.isExploded()) {
                 ship.explodir();
                 levelManager.setGameState(GameManager.State.END);
@@ -94,7 +94,7 @@ public class AsteroidesLevelController implements ControllerInterface {
             }
         }
 
-        if (asteroideManager.isAllAsteroidesCreated() && !ship.isExploded()) {
+        if (asteroidManager.isAllAsteroidesCreated() && !ship.isExploded()) {
             playerWin = true;
             levelManager.setGameState(GameManager.State.END);
         }
@@ -106,7 +106,7 @@ public class AsteroidesLevelController implements ControllerInterface {
         background.draw(canvas);
         ship.draw(canvas);
         score.draw(canvas);
-        asteroideManager.draw(canvas);
+        asteroidManager.draw(canvas);
 
     }
 

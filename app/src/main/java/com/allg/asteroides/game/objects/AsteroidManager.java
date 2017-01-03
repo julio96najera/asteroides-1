@@ -2,7 +2,6 @@ package com.allg.asteroides.game.objects;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.util.Log;
 
 import com.allg.asteroides.engine.GameObject;
 
@@ -10,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class AsteroideManager extends GameObject {
+public class AsteroidManager extends GameObject {
 
-    private List<Asteroide> asteroides;
+    private List<Asteroid> asteroids;
 
     private int asteroidesQuantity;
     private int velocity;
@@ -21,18 +20,18 @@ public class AsteroideManager extends GameObject {
     private int creationSteps = 0;
     private int asteroidesOutOfDisplay;
 
-    public AsteroideManager(Context context, int asteroidesQuantity, int velocity) {
+    public AsteroidManager(Context context, int asteroidesQuantity, int velocity) {
         super(context, 0, 0);
 
-        this.asteroides = new ArrayList<>();
+        this.asteroids = new ArrayList<>();
         this.asteroidesQuantity = asteroidesQuantity;
         this.velocity = velocity;
 
         this.creationInterval = 40;
     }
 
-    public List<Asteroide> getAsteroides() {
-        return asteroides;
+    public List<Asteroid> getAsteroids() {
+        return asteroids;
     }
 
     @Override
@@ -46,7 +45,7 @@ public class AsteroideManager extends GameObject {
 
         asteroidesOutOfDisplay = 0;
 
-        for (Asteroide a : asteroides) {
+        for (Asteroid a : asteroids) {
             if (a.isBottom(canvas))
                 asteroidesOutOfDisplay++;
             else
@@ -56,20 +55,20 @@ public class AsteroideManager extends GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        for (Asteroide a : asteroides)
+        for (Asteroid a : asteroids)
             if (!a.isBottom(canvas))
                 a.draw(canvas);
     }
 
     private void createAsteroide(Canvas canvas) {
-        if (asteroides.size() < asteroidesQuantity) {
+        if (asteroids.size() < asteroidesQuantity) {
 
             if (creationSteps >= creationInterval) {
                 Random random = new Random();
 
-                Asteroide asteroide = new Asteroide(getContext(),
+                Asteroid asteroid = new Asteroid(getContext(),
                         48 + random.nextInt(canvas.getWidth() - 96), 0, velocity);
-                asteroides.add(asteroide);
+                asteroids.add(asteroid);
 
                 creationSteps = 0;
 

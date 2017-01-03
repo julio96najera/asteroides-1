@@ -10,7 +10,10 @@ import com.allg.asteroides.engine.GameObject;
 import com.allg.asteroides.engine.Sprite;
 import com.allg.asteroides.game.objects.sound.ExplosionSound;
 
-public class Asteroide extends GameObject {
+public class Asteroid extends GameObject {
+
+    private static final int EXPLOSION_WAIT = 5;
+    private static final int MAX_SPRITES = 5;
 
     private Bitmap bitmap;
     private int passoY;
@@ -19,13 +22,10 @@ public class Asteroide extends GameObject {
     private ExplosionSound explosionSound;
     private boolean explosionSoundFinish = false;
     private Sprite explosionSprite;
-    private Boolean explosion = false;
-    private int explosionWait = 5;
     private int explosionWaitCount = 0;
     private int explosionAnimCount = 0;
-    private Bitmap explosionBitmap;
 
-    public Asteroide(Context context, int x, int y, int velocity) {
+    public Asteroid(Context context, int x, int y, int velocity) {
         super(context, x, y);
         this.x = x;
         this.y = y;
@@ -37,8 +37,9 @@ public class Asteroide extends GameObject {
 
         this.passoY = velocity;
 
-        explosionBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.explosion);
-        this.explosionSprite = new Sprite(explosionBitmap, 1, 5, this);
+        this.explosionSprite = new Sprite(
+                BitmapFactory.decodeResource(getResources(), R.drawable.explosion),
+                1, 5, this);
         explosionSound = new ExplosionSound(context);
     }
 
@@ -62,12 +63,13 @@ public class Asteroide extends GameObject {
     public void draw(Canvas canvas) {
         if (exploded) {
 
-            if (explosionWaitCount >= explosionWait) {
+            if (explosionWaitCount >= EXPLOSION_WAIT) {
                 explosionWaitCount = 0;
                 explosionAnimCount++; //passa para o proximo sprite
             }
 
-            explosionSprite.draw(canvas, 0, explosionAnimCount);
+            if (explosionAnimCount <= MAX_SPRITES)
+                explosionSprite.draw(canvas, 0, explosionAnimCount);
 
             explosionWaitCount++;
         } else {
@@ -76,11 +78,7 @@ public class Asteroide extends GameObject {
     }
 
     public boolean isBottom(Canvas canvas) {
-
-        if (this.getPosY() > canvas.getHeight())
-            return true;
-
-        return false;
+        return this.getPosY() > canvas.getHeight();
     }
 
     public void explodir() {

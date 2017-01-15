@@ -1,15 +1,18 @@
 package com.allg.asteroides.game.levels;
 
 import android.content.Context;
+import android.content.IntentSender;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.MotionEvent;
 
+import com.allg.asteroides.activity.GameActivity;
 import com.allg.asteroides.engine.Collision;
 import com.allg.asteroides.engine.ControllerInterface;
+import com.allg.asteroides.engine.GameController;
 import com.allg.asteroides.engine.GameManager;
-import com.allg.asteroides.game.objects.Asteroid;
-import com.allg.asteroides.game.objects.AsteroidManager;
+import com.allg.asteroides.game.objects.Asteroide;
+import com.allg.asteroides.game.objects.AsteroideManager;
 import com.allg.asteroides.game.objects.Score;
 import com.allg.asteroides.game.objects.Shot;
 import com.allg.asteroides.game.objects.SpaceShip;
@@ -26,15 +29,19 @@ public class AsteroidesLevelController implements ControllerInterface {
 
     private Background background;
 
-    private AsteroidManager asteroidManager;
+    private AsteroideManager asteroideManager;
 
     private Music music;
 
     private LevelManager levelManager;
 
+
     private boolean playerWin = false;
 
     private TextCenter textCenter;
+
+    private EventLost eventLost;
+    private EventWin eventWin;
 
     public AsteroidesLevelController(Context context, SpaceShip ship, Background background,
                                      Music music, int asteroidesNumber, int velocity,
@@ -48,13 +55,15 @@ public class AsteroidesLevelController implements ControllerInterface {
 
         this.score = new Score(context, ship);
 
-        this.asteroidManager = new AsteroidManager(context, asteroidesNumber, velocity);
+        this.asteroideManager = new AsteroideManager(context, asteroidesNumber, velocity);
 
         this.music = music;
 
         this.levelManager = levelManager;
 
         this.textCenter = new TextCenter(context, "Você Venceu!", 60, Color.YELLOW);
+
+        this.eventLost = new EventLost(context);
     }
 
     @Override
@@ -63,9 +72,10 @@ public class AsteroidesLevelController implements ControllerInterface {
         shipControl.startControl();
         background.initObject(canvas);
         score.initObject(canvas);
-        asteroidManager.initObject(canvas);
+        asteroideManager.initObject(canvas);
         music.initObject(canvas);
         textCenter.initObject(canvas);
+        playerWin = false;
     }
 
     @Override
@@ -73,9 +83,9 @@ public class AsteroidesLevelController implements ControllerInterface {
         ship.step(canvas);
         score.step(canvas);
         background.step(canvas);
-        asteroidManager.step(canvas);
+        asteroideManager.step(canvas);
 
-        for (Asteroid a : asteroidManager.getAsteroids()) {
+        for (Asteroide a : asteroideManager.getAsteroides()) {
             if (Collision.isCollided(a, ship) && !a.isExploded()) {
                 ship.explodir();
                 levelManager.setGameState(GameManager.State.END);
@@ -94,7 +104,7 @@ public class AsteroidesLevelController implements ControllerInterface {
             }
         }
 
-        if (asteroidManager.isAllAsteroidesCreated() && !ship.isExploded()) {
+        if (asteroideManager.isAllAsteroidesCreated() && !ship.isExploded()) {
             playerWin = true;
             levelManager.setGameState(GameManager.State.END);
         }
@@ -106,7 +116,7 @@ public class AsteroidesLevelController implements ControllerInterface {
         background.draw(canvas);
         ship.draw(canvas);
         score.draw(canvas);
-        asteroidManager.draw(canvas);
+        asteroideManager.draw(canvas);
 
     }
 
@@ -125,6 +135,7 @@ public class AsteroidesLevelController implements ControllerInterface {
             textCenter.draw(canvas);
             score.saveCacheScore();
         } else {
+            eventLost.draw(canvas);
             score.clearCacheScore();
         }
     }
@@ -138,7 +149,13 @@ public class AsteroidesLevelController implements ControllerInterface {
     public void touchEvent(MotionEvent event) {
         if (levelManager.getGameState() == GameManager.State.END && playerWin) {
             levelManager.levelFinish();
-        } else {
+        }
+
+        else if(levelManager.getGameState() == GameController.State.END && playerWin == false) {
+            eventLost.touchEvent(event, levelManager);
+        }
+
+        else {
             ship.disparar();
         }
     }
